@@ -1,6 +1,7 @@
 ---
 title: Chapter 5
 description: Building UI with Components
+type: Chapter
 ---
 
 ## React core concepts

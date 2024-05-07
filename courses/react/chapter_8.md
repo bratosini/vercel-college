@@ -1,6 +1,7 @@
 ---
 title: Chapter 8
 description: From React to Next.js
+type: Chapter
 ---
 
 So far, we explored how you can get started with React. This is what the final

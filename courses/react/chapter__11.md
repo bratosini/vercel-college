@@ -1,6 +1,7 @@
 ---
 title: Chapter 11
 description: Next Steps
+type: Chapter
 ---
 
 Congratulations on creating your first Next.js application!

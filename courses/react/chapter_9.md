@@ -1,6 +1,7 @@
 ---
 title: Chapter 9
 description: Installing Next.js
+type: Chapter
 ---
 
 When you use Next.js in your project, you do not need to load the `react` and

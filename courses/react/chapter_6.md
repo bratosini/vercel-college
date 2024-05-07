@@ -1,6 +1,7 @@
 ---
 title: Chapter 6
 description: Displaying Data with Props
+type: Chapter
 ---
 
 So far, if you were to reuse your `<Header />` component, it would display the
