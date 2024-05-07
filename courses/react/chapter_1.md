@@ -1,6 +1,7 @@
 ---
 title: Chapter 1
 description: About React and Next.js
+type: Chapter
 ---
 
 Next.js is a flexible **React framework** that gives you building blocks to
@@ -38,7 +39,6 @@ on-screen.
 
 ![User Interface example showing a browser window with a navigation, a sidebar, and a list of posts](/assets/learn-react-components.webp)
 
-
 By library, we mean React provides helpful functions (APIs) to build UI, but
 leaves it up to the developer where to use those functions in their
 application.
@@ -63,7 +63,6 @@ application.
 ![Diagram showing how Next.js spans the server and client, and provides additional features such as routing, data fetching, and
 rendering.](/assets/learn-ecosystem.webp)
 
-
 You can use React to build your UI, then incrementally adopt Next.js features
 to solve common application requirements such as routing, data fetching, and
 caching - all while improving the developer and end-user experience.
@@ -74,7 +73,6 @@ web applications.
 
 In the next chapters, we will discuss how you can get started with React and
 Next.js.
-
 
 ## You've Completed Chapter 1
 
