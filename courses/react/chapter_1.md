@@ -36,12 +36,8 @@ frameworks.
 By user interfaces (UI), we mean the elements that users see and interact with
 on-screen.
 
-![User Interface example showing a browser window with a navigation, a
-sidebar, and a list of posts](/\_next/image?url=%2Flearn%2Flight%2Flearn-react-
-components.png&w=3840&q=75)![User Interface example showing a browser window
-with a navigation, a sidebar, and a list of
-posts](/\_next/image?url=%2Flearn%2Fdark%2Flearn-react-
-components.png&w=3840&q=75)
+![User Interface example showing a browser window with a navigation, a sidebar, and a list of posts](/assets/learn-react-components.webp)
+
 
 By library, we mean React provides helpful functions (APIs) to build UI, but
 leaves it up to the developer where to use those functions in their
@@ -65,10 +61,8 @@ React, and provides additional structure, features, and optimizations for your
 application.
 
 ![Diagram showing how Next.js spans the server and client, and provides additional features such as routing, data fetching, and
-rendering.](/\_next/image?url=%2Flearn%2Flight%2Flearn-ecosystem.png&w=3840&q=75)
+rendering.](/assets/learn-ecosystem.webp)
 
-![Diagram showing how Next.js spans the server and client, and provides additional features such as routing, data fetching, and
-rendering.](https://nextjs.org/_next/image?url=%2Flearn%2Fdark%2Fdashboard.png&w=3840&q=75)
 
 You can use React to build your UI, then incrementally adopt Next.js features
 to solve common application requirements such as routing, data fetching, and
@@ -81,7 +75,6 @@ web applications.
 In the next chapters, we will discuss how you can get started with React and
 Next.js.
 
-1
 
 ## You've Completed Chapter 1
 
