@@ -1,6 +1,7 @@
 ---
 title: Chapter 4
 description: Getting Started with React
+type: Chapter
 ---
 
 To use React in your newly created project, load two React scripts from an

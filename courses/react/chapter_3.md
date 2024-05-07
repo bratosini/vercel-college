@@ -1,6 +1,7 @@
 ---
 title: Chapter 3
 description: Updating UI with Javascript
+type: Chapter
 ---
 
 In this chapter, we'll start building out our project by using JavaScript and
