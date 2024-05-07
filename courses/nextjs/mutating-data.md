@@ -1,6 +1,7 @@
 ---
-title: Chapter 12: Mutating Data
+title: Chapter 12
 description: Mutating Data
+type: Chapter
 ---
 
 In the previous chapter, you implemented search and pagination using URL
@@ -46,17 +47,15 @@ containing the captured data.
 
 For example:
 
-    
-    
     // Server Component
     export default function Page() {
       // Action
       async function create(formData: FormData) {
         'use server';
-     
+
         // Logic to mutate data...
       }
-     
+
       // Invoke the action using the "action" attribute
       return <form action={create}>...</form>;
     }
@@ -79,12 +78,12 @@ Let's see how it all works together!
 
 Here are the steps you'll take to create a new invoice:
 
-  1. Create a form to capture the user's input.
-  2. Create a Server Action and invoke it from the form.
-  3. Inside your Server Action, extract the data from the `formData` object.
-  4. Validate and prepare the data to be inserted into your database.
-  5. Insert the data and handle any errors.
-  6. Revalidate the cache and redirect the user back to invoices page.
+1. Create a form to capture the user's input.
+2. Create a Server Action and invoke it from the form.
+3. Inside your Server Action, extract the data from the `formData` object.
+4. Validate and prepare the data to be inserted into your database.
+5. Insert the data and handle any errors.
+6. Revalidate the cache and redirect the user back to invoices page.
 
 ### 1\. Create a new route and form
 
@@ -92,9 +91,9 @@ To start, inside the `/invoices` folder, add a new route segment called
 `/create` with a `page.tsx` file:
 
 ![Invoices folder with a nested create folder, and a page.tsx file inside
-it](/_next/image?url=%2Flearn%2Flight%2Fcreate-invoice-
+it](/\_next/image?url=%2Flearn%2Flight%2Fcreate-invoice-
 route.png&w=3840&q=75)![Invoices folder with a nested create folder, and a
-page.tsx file inside it](/_next/image?url=%2Flearn%2Fdark%2Fcreate-invoice-
+page.tsx file inside it](/\_next/image?url=%2Flearn%2Fdark%2Fcreate-invoice-
 route.png&w=3840&q=75)
 
 You'll be using this route to create new invoices. Inside your `page.tsx`
@@ -102,15 +101,13 @@ file, paste the following code, then spend some time studying it:
 
 /dashboard/invoices/create/page.tsx
 
-    
-    
     import Form from '@/app/ui/invoices/create-form';
     import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
     import { fetchCustomers } from '@/app/lib/data';
-     
+
     export default async function Page() {
       const customers = await fetchCustomers();
-     
+
       return (
         <main>
           <Breadcrumbs
@@ -134,17 +131,17 @@ for you.
 
 Navigate to the `<Form>` component, and you'll see that the form:
 
-  * Has one `<select>` (dropdown) element with a list of **customers**.
-  * Has one `<input>` element for the **amount** with `type="number"`.
-  * Has two `<input>` elements for the status with `type="radio"`.
-  * Has one button with `type="submit"`.
+- Has one `<select>` (dropdown) element with a list of **customers**.
+- Has one `<input>` element for the **amount** with `type="number"`.
+- Has two `<input>` elements for the status with `type="radio"`.
+- Has one button with `type="submit"`.
 
 On
 <http://localhost:3000/dashboard/invoices/create>[](http://localhost:3000/dashboard/invoices/create),
 you should see the following UI:
 
 ![Create invoices page with breadcrumbs and
-form](/_next/image?url=%2Flearn%2Flight%2Fcreate-invoice-
+form](/\_next/image?url=%2Flearn%2Flight%2Fcreate-invoice-
 page.png&w=1920&q=75)![Create invoices page with breadcrumbs and
 form](/_next/image?url=%2Flearn%2Fdark%2Fcreate-invoice-page.png&w=1920&q=75)
 
@@ -159,8 +156,6 @@ server`](https://react.dev/reference/react/use-server) directive:
 
 /app/lib/actions.ts
 
-    
-    
     'use server';
 
 By adding the `'use server'`, you mark all the exported functions within the
@@ -176,10 +171,8 @@ In your `actions.ts` file, create a new async function that accepts
 
 /app/lib/actions.ts
 
-    
-    
     'use server';
-     
+
     export async function createInvoice(formData: FormData) {}
 
 Then, in your `<Form>` component, import the `createInvoice` from your
@@ -188,8 +181,6 @@ the `createInvoice` action.
 
 /app/ui/invoices/create-form.tsx
 
-    
-    
     import { customerField } from '@/app/lib/definitions';
     import Link from 'next/link';
     import {
@@ -200,7 +191,7 @@ the `createInvoice` action.
     } from '@heroicons/react/24/outline';
     import { Button } from '@/app/ui/button';
     import { createInvoice } from '@/app/lib/actions';
-     
+
     export default function Form({
       customers,
     }: {
@@ -232,10 +223,8 @@ method.
 
 /app/lib/actions.ts
 
-    
-    
     'use server';
-     
+
     export async function createInvoice(formData: FormData) {
       const rawFormData = {
         customerId: formData.get('customerId'),
@@ -270,8 +259,6 @@ course, your invoices table expects data in the following format:
 
 /app/lib/definitions.ts
 
-    
-    
     export type Invoice = {
       id: string; // Will be created on the database
       customer_id: string;
@@ -288,8 +275,6 @@ It's important to validate that the data from your form aligns with the
 expected types in your database. For instance, if you add a `console.log`
 inside your action:
 
-    
-    
     console.log(typeof rawFormData.amount);
 
 You'll notice that `amount` is of type `string` and not `number`. This is
@@ -307,12 +292,10 @@ saving it to a database.
 
 /app/lib/actions.ts
 
-    
-    
     'use server';
-     
+
     import { z } from 'zod';
-     
+
     const FormSchema = z.object({
       id: z.string(),
       customerId: z.string(),
@@ -320,9 +303,9 @@ saving it to a database.
       status: z.enum(['pending', 'paid']),
       date: z.string(),
     });
-     
+
     const CreateInvoice = FormSchema.omit({ id: true, date: true });
-     
+
     export async function createInvoice(formData: FormData) {
       // ...
     }
@@ -334,8 +317,6 @@ You can then pass your `rawFormData` to `CreateInvoice` to validate the types:
 
 /app/lib/actions.ts
 
-    
-    
     // ...
     export async function createInvoice(formData: FormData) {
       const { customerId, amount, status } = CreateInvoice.parse({
@@ -354,8 +335,6 @@ Let's convert the amount into cents:
 
 /app/lib/actions.ts
 
-    
-    
     // ...
     export async function createInvoice(formData: FormData) {
       const { customerId, amount, status } = CreateInvoice.parse({
@@ -373,8 +352,6 @@ invoice's creation date:
 
 /app/lib/actions.ts
 
-    
-    
     // ...
     export async function createInvoice(formData: FormData) {
       const { customerId, amount, status } = CreateInvoice.parse({
@@ -394,13 +371,11 @@ variables:
 
 /app/lib/actions.ts
 
-    
-    
     import { z } from 'zod';
     import { sql } from '@vercel/postgres';
-     
+
     // ...
-     
+
     export async function createInvoice(formData: FormData) {
       const { customerId, amount, status } = CreateInvoice.parse({
         customerId: formData.get('customerId'),
@@ -409,7 +384,7 @@ variables:
       });
       const amountInCents = amount * 100;
       const date = new Date().toISOString().split('T')[0];
-     
+
       await sql`
         INSERT INTO invoices (customer_id, amount, status, date)
         VALUES (${customerId}, ${amountInCents}, ${status}, ${date})
@@ -435,16 +410,14 @@ function from Next.js:
 
 /app/lib/actions.ts
 
-    
-    
     'use server';
-     
+
     import { z } from 'zod';
     import { sql } from '@vercel/postgres';
     import { revalidatePath } from 'next/cache';
-     
+
     // ...
-     
+
     export async function createInvoice(formData: FormData) {
       const { customerId, amount, status } = CreateInvoice.parse({
         customerId: formData.get('customerId'),
@@ -453,12 +426,12 @@ function from Next.js:
       });
       const amountInCents = amount * 100;
       const date = new Date().toISOString().split('T')[0];
-     
+
       await sql`
         INSERT INTO invoices (customer_id, amount, status, date)
         VALUES (${customerId}, ${amountInCents}, ${status}, ${date})
       `;
-     
+
       revalidatePath('/dashboard/invoices');
     }
 
@@ -472,20 +445,18 @@ Next.js:
 
 /app/lib/actions.ts
 
-    
-    
     'use server';
-     
+
     import { z } from 'zod';
     import { sql } from '@vercel/postgres';
     import { revalidatePath } from 'next/cache';
     import { redirect } from 'next/navigation';
-     
+
     // ...
-     
+
     export async function createInvoice(formData: FormData) {
       // ...
-     
+
       revalidatePath('/dashboard/invoices');
       redirect('/dashboard/invoices');
     }
@@ -493,8 +464,8 @@ Next.js:
 Congratulations! You've just implemented your first Server Action. Test it out
 by adding a new invoice, if everything is working correctly:
 
-  1. You should be redirected to the `/dashboard/invoices` route on submission.
-  2. You should see the new invoice at the top of the table.
+1. You should be redirected to the `/dashboard/invoices` route on submission.
+2. You should see the new invoice at the top of the table.
 
 ## Updating an invoice
 
@@ -504,11 +475,11 @@ Let's see how you can get and pass the invoice `id`.
 
 These are the steps you'll take to update an invoice:
 
-  1. Create a new dynamic route segment with the invoice `id`.
-  2. Read the invoice `id` from the page params.
-  3. Fetch the specific invoice from your database.
-  4. Pre-populate the form with the invoice data.
-  5. Update the invoice data in your database.
+1. Create a new dynamic route segment with the invoice `id`.
+2. Read the invoice `id` from the page params.
+3. Fetch the specific invoice from your database.
+4. Pre-populate the form with the invoice data.
+5. Update the invoice data in your database.
 
 ### 1\. Create a Dynamic Route Segment with the invoice `id`
 
@@ -522,10 +493,10 @@ In your `/invoices` folder, create a new dynamic route called `[id]`, then a
 new route called `edit` with a `page.tsx` file. Your file structure should
 look like this:
 
-![Invoices folder with a nested \[id\] folder, and an edit folder inside
-it](/_next/image?url=%2Flearn%2Flight%2Fedit-invoice-
-route.png&w=3840&q=75)![Invoices folder with a nested \[id\] folder, and an
-edit folder inside it](/_next/image?url=%2Flearn%2Fdark%2Fedit-invoice-
+![Invoices folder with a nested [id] folder, and an edit folder inside
+it](/\_next/image?url=%2Flearn%2Flight%2Fedit-invoice-
+route.png&w=3840&q=75)![Invoices folder with a nested [id] folder, and an
+edit folder inside it](/\_next/image?url=%2Flearn%2Fdark%2Fedit-invoice-
 route.png&w=3840&q=75)
 
 In your `<Table>` component, notice there's a `<UpdateInvoice />` button that
@@ -533,8 +504,6 @@ receives the invoice's `id` from the table records.
 
 /app/ui/invoices/table.tsx
 
-    
-    
     export default async function InvoicesTable({
       query,
       currentPage,
@@ -558,13 +527,11 @@ dynamic route segment:
 
 /app/ui/invoices/buttons.tsx
 
-    
-    
     import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
     import Link from 'next/link';
-     
+
     // ...
-     
+
     export function UpdateInvoice({ id }: { id: string }) {
       return (
         <Link
@@ -582,12 +549,10 @@ Back on your `<Page>` component, paste the following code:
 
 /app/dashboard/invoices/[id]/edit/page.tsx
 
-    
-    
     import Form from '@/app/ui/invoices/edit-form';
     import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
     import { fetchCustomers } from '@/app/lib/data';
-     
+
     export default async function Page() {
       return (
         <main>
@@ -618,12 +583,10 @@ to receive the prop:
 
 /app/dashboard/invoices/[id]/edit/page.tsx
 
-    
-    
     import Form from '@/app/ui/invoices/edit-form';
     import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
     import { fetchCustomers } from '@/app/lib/data';
-     
+
     export default async function Page({ params }: { params: { id: string } }) {
       const id = params.id;
       // ...
@@ -633,19 +596,17 @@ to receive the prop:
 
 Then:
 
-  * Import a new function called `fetchInvoiceById` and pass the `id` as an argument.
-  * Import `fetchCustomers` to fetch the customer names for the dropdown.
+- Import a new function called `fetchInvoiceById` and pass the `id` as an argument.
+- Import `fetchCustomers` to fetch the customer names for the dropdown.
 
 You can use `Promise.all` to fetch both the invoice and customers in parallel:
 
 /dashboard/invoices/[id]/edit/page.tsx
 
-    
-    
     import Form from '@/app/ui/invoices/edit-form';
     import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
     import { fetchInvoiceById, fetchCustomers } from '@/app/lib/data';
-     
+
     export default async function Page({ params }: { params: { id: string } }) {
       const id = params.id;
       const [invoice, customers] = await Promise.all([
@@ -665,7 +626,7 @@ and click on the Pencil icon to edit an invoice. After navigation, you should
 see a form that is pre-populated with the invoice details:
 
 ![Edit invoices page with breadcrumbs and
-form](/_next/image?url=%2Flearn%2Flight%2Fedit-invoice-
+form](/\_next/image?url=%2Flearn%2Flight%2Fedit-invoice-
 page.png&w=1920&q=75)![Edit invoices page with breadcrumbs and
 form](/_next/image?url=%2Flearn%2Fdark%2Fedit-invoice-page.png&w=1920&q=75)
 
@@ -690,8 +651,6 @@ like so:
 
 /app/ui/invoices/edit-form.tsx
 
-    
-    
     // Passing an id as argument won't work
     <form action={updateInvoice(id)}>
 
@@ -700,11 +659,9 @@ ensure that any values passed to the Server Action are encoded.
 
 /app/ui/invoices/edit-form.tsx
 
-    
-    
     // ...
     import { updateInvoice } from '@/app/lib/actions';
-     
+
     export default function EditInvoiceForm({
       invoice,
       customers,
@@ -713,7 +670,7 @@ ensure that any values passed to the Server Action are encoded.
       customers: CustomerField[];
     }) {
       const updateInvoiceWithId = updateInvoice.bind(null, invoice.id);
-     
+
       return (
         <form action={updateInvoiceWithId}>
           <input type="hidden" name="id" value={invoice.id} />
@@ -722,7 +679,7 @@ ensure that any values passed to the Server Action are encoded.
     }
 
 > **Note:** Using a hidden input field in your form also works (e.g. `<input
-> type="hidden" name="id" value={invoice.id} />`). However, the values will
+type="hidden" name="id" value={invoice.id} />`). However, the values will
 > appear as full text in the HTML source, which is not ideal for sensitive
 > data like IDs.
 
@@ -730,40 +687,38 @@ Then, in your `actions.ts` file, create a new action, `updateInvoice`:
 
 /app/lib/actions.ts
 
-    
-    
     // Use Zod to update the expected types
     const UpdateInvoice = FormSchema.omit({ id: true, date: true });
-     
+
     // ...
-     
+
     export async function updateInvoice(id: string, formData: FormData) {
       const { customerId, amount, status } = UpdateInvoice.parse({
         customerId: formData.get('customerId'),
         amount: formData.get('amount'),
         status: formData.get('status'),
       });
-     
+
       const amountInCents = amount * 100;
-     
+
       await sql`
         UPDATE invoices
         SET customer_id = ${customerId}, amount = ${amountInCents}, status = ${status}
         WHERE id = ${id}
       `;
-     
+
       revalidatePath('/dashboard/invoices');
       redirect('/dashboard/invoices');
     }
 
 Similarly to the `createInvoice` action, here you are:
 
-  1. Extracting the data from `formData`.
-  2. Validating the types with Zod.
-  3. Converting the amount to cents.
-  4. Passing the variables to your SQL query.
-  5. Calling `revalidatePath` to clear the client cache and make a new server request.
-  6. Calling `redirect` to redirect the user to the invoice's page.
+1. Extracting the data from `formData`.
+2. Validating the types with Zod.
+3. Converting the amount to cents.
+4. Passing the variables to your SQL query.
+5. Calling `revalidatePath` to clear the client cache and make a new server request.
+6. Calling `redirect` to redirect the user to the invoice's page.
 
 Test it out by editing an invoice. After submitting the form, you should be
 redirected to the invoices page, and the invoice should be updated.
@@ -775,15 +730,13 @@ To delete an invoice using a Server Action, wrap the delete button in a
 
 /app/ui/invoices/buttons.tsx
 
-    
-    
     import { deleteInvoice } from '@/app/lib/actions';
-     
+
     // ...
-     
+
     export function DeleteInvoice({ id }: { id: string }) {
       const deleteInvoiceWithId = deleteInvoice.bind(null, id);
-     
+
       return (
         <form action={deleteInvoiceWithId}>
           <button className="rounded-md border p-2 hover:bg-gray-100">
@@ -798,8 +751,6 @@ Inside your `actions.ts` file, create a new action called `deleteInvoice`.
 
 /app/lib/actions.ts
 
-    
-    
     export async function deleteInvoice(id: string) {
       await sql`DELETE FROM invoices WHERE id = ${id}`;
       revalidatePath('/dashboard/invoices');
@@ -836,4 +787,3 @@ handling and accessibility.
 [Start Chapter 13](/learn/dashboard-app/error-handling)
 
 Was this helpful?
-

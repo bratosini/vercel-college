@@ -1,6 +1,7 @@
 ---
-title: Chapter 4: Creating Layouts and Pages
+title: Chapter 4
 description: Creating Layouts and Pages
+type: Chapter
 ---
 
 So far, your application only has a home page. Let's learn how you can create
@@ -25,9 +26,9 @@ routes. Each folder represents a **route segment** that maps to a **URL
 segment**.
 
 ![Diagram showing how folders map to URL
-segments](/_next/image?url=%2Flearn%2Flight%2Ffolders-to-url-
+segments](/\_next/image?url=%2Flearn%2Flight%2Ffolders-to-url-
 segments.png&w=3840&q=75)![Diagram showing how folders map to URL
-segments](/_next/image?url=%2Flearn%2Fdark%2Ffolders-to-url-
+segments](/\_next/image?url=%2Flearn%2Fdark%2Ffolders-to-url-
 segments.png&w=3840&q=75)
 
 You can create separate UIs for each route using `layout.tsx` and `page.tsx`
@@ -42,10 +43,10 @@ To create a nested route, you can nest folders inside each other and add
 `page.tsx` files inside them. For example:
 
 ![Diagram showing how adding a folder called dashboard creates a new route
-'/dashboard'](/_next/image?url=%2Flearn%2Flight%2Fdashboard-
+'/dashboard'](/\_next/image?url=%2Flearn%2Flight%2Fdashboard-
 route.png&w=3840&q=75)![Diagram showing how adding a folder called dashboard
 creates a new route
-'/dashboard'](/_next/image?url=%2Flearn%2Fdark%2Fdashboard-
+'/dashboard'](/\_next/image?url=%2Flearn%2Fdark%2Fdashboard-
 route.png&w=3840&q=75)
 
 `/app/dashboard/page.tsx` is associated with the `/dashboard` path. Let's
@@ -58,8 +59,6 @@ Create a new folder called `dashboard` inside `/app`. Then, create a new
 
 /app/dashboard/page.tsx
 
-    
-    
     export default function Page() {
       return <p>Dashboard Page</p>;
     }
@@ -82,8 +81,8 @@ your routes.
 
 Let's practice creating more routes. In your dashboard, create two more pages:
 
-  1. **Customers Page** : The page should be accessible on <http://localhost:3000/dashboard/customers>[](http://localhost:3000/dashboard/customers). For now, it should return a `<p>Customers Page</p>` element.
-  2. **Invoices Page** : The invoices page should be accessible on <http://localhost:3000/dashboard/invoices>[](http://localhost:3000/dashboard/invoices). For now, also return a `<p>Invoices Page</p>` element.
+1. **Customers Page** : The page should be accessible on <http://localhost:3000/dashboard/customers>[](http://localhost:3000/dashboard/customers). For now, it should return a `<p>Customers Page</p>` element.
+2. **Invoices Page** : The invoices page should be accessible on <http://localhost:3000/dashboard/invoices>[](http://localhost:3000/dashboard/invoices). For now, also return a `<p>Invoices Page</p>` element.
 
 Spend some time tackling this exercise, and when you're ready, expand the
 toggle below for the solution:
@@ -101,10 +100,8 @@ the following code:
 
 /app/dashboard/layout.tsx
 
-    
-    
     import SideNav from '@/app/ui/dashboard/sidenav';
-     
+
     export default function Layout({ children }: { children: React.ReactNode }) {
       return (
         <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
@@ -126,16 +123,16 @@ be a page or another layout. In your case, the pages inside `/dashboard` will
 automatically be nested inside a `<Layout />` like so:
 
 ![Folder structure with dashboard layout nesting the dashboard pages as
-children](/_next/image?url=%2Flearn%2Flight%2Fshared-
+children](/\_next/image?url=%2Flearn%2Flight%2Fshared-
 layout.png&w=3840&q=75)![Folder structure with dashboard layout nesting the
-dashboard pages as children](/_next/image?url=%2Flearn%2Fdark%2Fshared-
+dashboard pages as children](/\_next/image?url=%2Flearn%2Fdark%2Fshared-
 layout.png&w=3840&q=75)
 
 Check that everything is working correctly by saving your changes and checking
 your localhost. You should see the following:
 
 ![Dashboard page with a sidenav and a main content
-area](/_next/image?url=%2Flearn%2Flight%2Fshared-layout-
+area](/\_next/image?url=%2Flearn%2Flight%2Fshared-layout-
 page.png&w=1920&q=75)![Dashboard page with a sidenav and a main content
 area](/_next/image?url=%2Flearn%2Fdark%2Fshared-layout-page.png&w=1920&q=75)
 
@@ -146,10 +143,10 @@ navigating#3-partial-rendering):
 
 ![Folder structure showing the dashboard layout nesting the dashboard pages,
 but only the pages UI swap on
-navigation](/_next/image?url=%2Flearn%2Flight%2Fpartial-rendering-
+navigation](/\_next/image?url=%2Flearn%2Flight%2Fpartial-rendering-
 dashboard.png&w=3840&q=75)![Folder structure showing the dashboard layout
 nesting the dashboard pages, but only the pages UI swap on
-navigation](/_next/image?url=%2Flearn%2Fdark%2Fpartial-rendering-
+navigation](/\_next/image?url=%2Flearn%2Fdark%2Fpartial-rendering-
 dashboard.png&w=3840&q=75)
 
 ## Root layout
@@ -159,11 +156,9 @@ In Chapter 3, you imported the `Inter` font into another layout:
 
 /app/layout.tsx
 
-    
-    
     import '@/app/ui/global.css';
     import { inter } from '@/app/ui/fonts';
-     
+
     export default function RootLayout({
       children,
     }: {
@@ -202,4 +197,3 @@ Learn how to navigate between dashboard pages using the `<Link>` component.
 [Start Chapter 5](/learn/dashboard-app/navigating-between-pages)
 
 Was this helpful?
-

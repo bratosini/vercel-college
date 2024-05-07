@@ -1,6 +1,7 @@
 ---
-title: Chapter 2: CSS Styling
+title: Chapter 2
 description: CSS Styling
+type: Chapter
 ---
 
 Currently, your home page doesn't have any styles. Let's look at the different
@@ -33,10 +34,8 @@ importing the `global.css` file:
 
 /app/layout.tsx
 
-    
-    
     import '@/app/ui/global.css';
-     
+
     export default function RootLayout({
       children,
     }: {
@@ -53,9 +52,9 @@ With the development server still running, save your changes and preview them
 in the browser. Your home page should now look like this:
 
 ![Styled page with the logo 'Acme', a description, and login
-link.](/_next/image?url=%2Flearn%2Flight%2Fhome-page-with-
+link.](/\_next/image?url=%2Flearn%2Flight%2Fhome-page-with-
 tailwind.png&w=1920&q=75)![Styled page with the logo 'Acme', a description,
-and login link.](/_next/image?url=%2Flearn%2Fdark%2Fhome-page-with-
+and login link.](/\_next/image?url=%2Flearn%2Fdark%2Fhome-page-with-
 tailwind.png&w=1920&q=75)
 
 But wait a second, you didn't add any CSS rules, where did the styles come
@@ -66,8 +65,6 @@ directives:
 
 /app/ui/global.css
 
-    
-    
     @tailwind base;
     @tailwind components;
     @tailwind utilities;
@@ -82,8 +79,6 @@ markup.
 In Tailwind, you style elements by adding class names. For example, adding the
 class `"text-blue-500"` will turn the `<h1>` text blue:
 
-    
-    
     <h1 className="text-blue-500">I'm blue!</h1>
 
 Although the CSS styles are shared globally, each class is singularly applied
@@ -100,12 +95,10 @@ in the example.
 
 /app/page.tsx
 
-    
-    
     import AcmeLogo from '@/app/ui/acme-logo';
     import { ArrowRightIcon } from '@heroicons/react/24/outline';
     import Link from 'next/link';
-     
+
     export default function Page() {
       return (
         // These are Tailwind classes:
@@ -123,8 +116,6 @@ element in `/app/page.tsx`:
 
 /app/page.tsx
 
-    
-    
     <div
       className="h-0 w-0 border-b-[30px] border-l-[20px] border-r-[20px] border-b-black border-l-transparent border-r-transparent"
     />
@@ -146,8 +137,6 @@ following CSS rules:
 
 /app/ui/home.module.css
 
-    
-    
     .shape {
       height: 0;
       width: 0;
@@ -161,8 +150,6 @@ Tailwind class names from the `<div>` you've added with `styles.shape`:
 
 /app/page.tsx
 
-    
-    
     import styles from '@/app/ui/home.module.css';
     <div className={styles.shape} />;
 
@@ -183,17 +170,15 @@ class names easily. We recommend taking a look at
 [documentation](https://github.com/lukeed/clsx) for more details, but here's
 the basic usage:
 
-  * Suppose that you want to create an `InvoiceStatus` component which accepts `status`. The status can be `'pending'` or `'paid'`.
-  * If it's `'paid'`, you want the color to be green. If it's `'pending'`, you want the color to be gray.
+- Suppose that you want to create an `InvoiceStatus` component which accepts `status`. The status can be `'pending'` or `'paid'`.
+- If it's `'paid'`, you want the color to be green. If it's `'pending'`, you want the color to be gray.
 
 You can use `clsx` to conditionally apply the classes, like this:
 
 /app/ui/invoices/status.tsx
 
-    
-    
     import clsx from 'clsx';
-     
+
     export default function InvoiceStatus({ status }: { status: string }) {
       return (
         <span
@@ -213,8 +198,8 @@ You can use `clsx` to conditionally apply the classes, like this:
 In addition to the approaches we've discussed, you can also style your Next.js
 application with:
 
-  * Sass which allows you to import `.css` and `.scss` files.
-  * CSS-in-JS libraries such as [styled-jsx](https://github.com/vercel/styled-jsx), [styled-components](https://github.com/vercel/next.js/tree/canary/examples/with-styled-components), and [emotion](https://github.com/vercel/next.js/tree/canary/examples/with-emotion).
+- Sass which allows you to import `.css` and `.scss` files.
+- CSS-in-JS libraries such as [styled-jsx](https://github.com/vercel/styled-jsx), [styled-components](https://github.com/vercel/next.js/tree/canary/examples/with-styled-components), and [emotion](https://github.com/vercel/next.js/tree/canary/examples/with-emotion).
 
 Take a look at the [CSS documentation](/docs/app/building-your-
 application/styling) for more information.
@@ -235,4 +220,3 @@ Continue working on your home page by adding a hero image and a custom font.
 [Start Chapter 3](/learn/dashboard-app/optimizing-fonts-images)
 
 Was this helpful?
-

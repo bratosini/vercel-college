@@ -1,6 +1,7 @@
 ---
 title: Chapter 3: Optimizing Fonts and Images
 description: Optimizing Fonts and Images
+type: Chapter
 ---
 
 In the previous chapter, you learned how to style your Next.js application.
@@ -31,7 +32,7 @@ cause the text size, spacing, or layout to change, shifting elements around
 it.
 
 ![Mock UI showing initial load of a page, followed by a layout shift as the
-custom font loads.](/_next/image?url=%2Flearn%2Flight%2Ffont-layout-
+custom font loads.](/\_next/image?url=%2Flearn%2Flight%2Ffont-layout-
 shift.png&w=3840&q=75)![Mock UI showing initial load of a page, followed by a
 layout shift as the custom font
 loads.](/_next/image?url=%2Flearn%2Fdark%2Ffont-layout-shift.png&w=3840&q=75)
@@ -56,21 +57,17 @@ load. In this case, `'latin'`:
 
 /app/ui/fonts.ts
 
-    
-    
     import { Inter } from 'next/font/google';
-     
+
     export const inter = Inter({ subsets: ['latin'] });
 
 Finally, add the font to the `<body>` element in `/app/layout.tsx`:
 
 /app/layout.tsx
 
-    
-    
     import '@/app/ui/global.css';
     import { inter } from '@/app/ui/fonts';
-     
+
     export default function RootLayout({
       children,
     }: {
@@ -105,15 +102,14 @@ Once you're ready, expand the code snippet below to see the solution.
 
 > **Hints:**
 >
->   * If you're unsure what weight options to pass to a font, check the
-> TypeScript errors in your code editor.
->   * Visit the [Google Fonts](https://fonts.google.com/) website and search
-> for `Lusitana` to see what options are available.
->   * See the documentation for [adding multiple fonts](/docs/app/building-
-> your-application/optimizing/fonts#using-multiple-fonts) and the [full list
-> of options](/docs/app/api-reference/components/font#font-function-
-> arguments).
->
+> - If you're unsure what weight options to pass to a font, check the
+>   TypeScript errors in your code editor.
+> - Visit the [Google Fonts](https://fonts.google.com/) website and search
+>   for `Lusitana` to see what options are available.
+> - See the documentation for [adding multiple fonts](/docs/app/building-
+>   your-application/optimizing/fonts#using-multiple-fonts) and the [full list
+>   > of options](/docs/app/api-reference/components/font#font-function-
+>   > arguments).
 
 Reveal the solution
 
@@ -122,10 +118,8 @@ to prevent errors, you can now uncomment it:
 
 /app/page.tsx
 
-    
-    
     // ...
-     
+
     export default function Page() {
       return (
         <main className="flex min-h-screen flex-col p-6">
@@ -148,8 +142,6 @@ folder. Files inside `/public` can be referenced in your application.
 
 With regular HTML, you would add an image as follows:
 
-    
-    
     <img
       src="/hero.png"
       alt="Screenshots of the dashboard project showing desktop version"
@@ -157,10 +149,10 @@ With regular HTML, you would add an image as follows:
 
 However, this means you have to manually:
 
-  * Ensure your image is responsive on different screen sizes.
-  * Specify image sizes for different devices.
-  * Prevent layout shift as the images load.
-  * Lazy load images that are outside the user's viewport.
+- Ensure your image is responsive on different screen sizes.
+- Specify image sizes for different devices.
+- Prevent layout shift as the images load.
+- Lazy load images that are outside the user's viewport.
 
 Image Optimization is a large topic in web development that could be
 considered a specialization in itself. Instead of manually implementing these
@@ -172,10 +164,10 @@ optimize your images.
 The `<Image>` Component is an extension of the HTML `<img>` tag, and comes
 with automatic image optimization, such as:
 
-  * Preventing layout shift automatically when images are loading.
-  * Resizing images to avoid shipping large images to devices with a smaller viewport.
-  * Lazy loading images by default (images load as they enter the viewport).
-  * Serving images in modern formats, like [WebP](https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types#webp) and [AVIF](https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types#avif_image), when the browser supports it.
+- Preventing layout shift automatically when images are loading.
+- Resizing images to avoid shipping large images to devices with a smaller viewport.
+- Lazy loading images by default (images load as they enter the viewport).
+- Serving images in modern formats, like [WebP](https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types#webp) and [AVIF](https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types#avif_image), when the browser supports it.
 
 ## Adding the desktop hero image
 
@@ -190,14 +182,12 @@ the image under the comment:
 
 /app/page.tsx
 
-    
-    
     import AcmeLogo from '@/app/ui/acme-logo';
     import { ArrowRightIcon } from '@heroicons/react/24/outline';
     import Link from 'next/link';
     import { lusitana } from '@/app/ui/fonts';
     import Image from 'next/image';
-     
+
     export default function Page() {
       return (
         // ...
@@ -225,7 +215,7 @@ mobile screens, and `md:block` to show the image on desktop screens.
 This is what your home page should look like now:
 
 ![Styled home page with a custom font and hero
-image](/_next/image?url=%2Flearn%2Flight%2Fhome-page-with-
+image](/\_next/image?url=%2Flearn%2Flight%2Fhome-page-with-
 hero.png&w=1920&q=75)![Styled home page with a custom font and hero
 image](/_next/image?url=%2Flearn%2Fdark%2Fhome-page-with-hero.png&w=1920&q=75)
 
@@ -234,8 +224,8 @@ image](/_next/image?url=%2Flearn%2Fdark%2Fhome-page-with-hero.png&w=1920&q=75)
 Now it's your turn! Under the image you've just added, add another `<Image>`
 component for `hero-mobile.png`.
 
-  * The image should have a `width` of `560` and `height` of `620` pixels.
-  * It should be shown on mobile screens, and hidden on desktop - you can use dev tools to check if the desktop and mobile images are swapped correctly.
+- The image should have a `width` of `560` and `height` of `620` pixels.
+- It should be shown on mobile screens, and hidden on desktop - you can use dev tools to check if the desktop and mobile images are swapped correctly.
 
 Once you're ready, expand the code snippet below to see the solution.
 
@@ -249,10 +239,10 @@ There's a lot more to learn about these topics, including optimizing remote
 images and using local font files. If you'd like to dive deeper into fonts and
 images, see:
 
-  * [Image Optimization Docs](/docs/app/building-your-application/optimizing/images)
-  * [Font Optimization Docs](/docs/app/building-your-application/optimizing/fonts)
-  * [Improving Web Performance with Images (MDN)](https://developer.mozilla.org/en-US/docs/Learn/Performance/Multimedia)
-  * [Web Fonts (MDN)](https://developer.mozilla.org/en-US/docs/Learn/CSS/Styling_text/Web_fonts)
+- [Image Optimization Docs](/docs/app/building-your-application/optimizing/images)
+- [Font Optimization Docs](/docs/app/building-your-application/optimizing/fonts)
+- [Improving Web Performance with Images (MDN)](https://developer.mozilla.org/en-US/docs/Learn/Performance/Multimedia)
+- [Web Fonts (MDN)](https://developer.mozilla.org/en-US/docs/Learn/CSS/Styling_text/Web_fonts)
 
 3
 
@@ -269,4 +259,3 @@ Let's create your dashboard routes using nested layouts and pages!
 [Start Chapter 4](/learn/dashboard-app/creating-layouts-and-pages)
 
 Was this helpful?
-

@@ -1,6 +1,7 @@
 ---
-title: Chapter 11: Adding Search and Pagination
+title: Chapter 11
 description: Adding Search and Pagination
+type: Chapter
 ---
 
 In the previous chapter, you improved your dashboard's initial loading
@@ -22,8 +23,6 @@ Inside your `/dashboard/invoices/page.tsx` file, paste the following code:
 
 /app/dashboard/invoices/page.tsx
 
-    
-    
     import Pagination from '@/app/ui/invoices/pagination';
     import Search from '@/app/ui/search';
     import Table from '@/app/ui/invoices/table';
@@ -31,7 +30,7 @@ Inside your `/dashboard/invoices/page.tsx` file, paste the following code:
     import { lusitana } from '@/app/ui/fonts';
     import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
     import { Suspense } from 'react';
-     
+
     export default async function Page() {
       return (
         <div className="w-full">
@@ -55,9 +54,9 @@ Inside your `/dashboard/invoices/page.tsx` file, paste the following code:
 Spend some time familiarizing yourself with the page and the components you'll
 be working with:
 
-  1. `<Search/>` allows users to search for specific invoices.
-  2. `<Pagination/>` allows users to navigate between pages of invoices.
-  3. `<Table/>` displays the invoices.
+1. `<Search/>` allows users to search for specific invoices.
+2. `<Pagination/>` allows users to navigate between pages of invoices.
+3. `<Table/>` displays the invoices.
 
 Your search functionality will span the client and the server. When a user
 searches for an invoice on the client, the URL params will be updated, data
@@ -72,32 +71,32 @@ state.
 
 There are a couple of benefits of implementing search with URL params:
 
-  * **Bookmarkable and Shareable URLs** : Since the search parameters are in the URL, users can bookmark the current state of the application, including their search queries and filters, for future reference or sharing.
-  * **Server-Side Rendering and Initial Load** : URL parameters can be directly consumed on the server to render the initial state, making it easier to handle server rendering.
-  * **Analytics and Tracking** : Having search queries and filters directly in the URL makes it easier to track user behavior without requiring additional client-side logic.
+- **Bookmarkable and Shareable URLs** : Since the search parameters are in the URL, users can bookmark the current state of the application, including their search queries and filters, for future reference or sharing.
+- **Server-Side Rendering and Initial Load** : URL parameters can be directly consumed on the server to render the initial state, making it easier to handle server rendering.
+- **Analytics and Tracking** : Having search queries and filters directly in the URL makes it easier to track user behavior without requiring additional client-side logic.
 
 ## Adding the search functionality
 
 These are the Next.js client hooks that you'll use to implement the search
 functionality:
 
-  * **`useSearchParams`** \- Allows you to access the parameters of the current URL. For example, the search params for this URL `/dashboard/invoices?page=1&query=pending` would look like this: `{page: '1', query: 'pending'}`.
-  * **`usePathname`** \- Lets you read the current URL's pathname. For example, for the route `/dashboard/invoices`, `usePathname` would return `'/dashboard/invoices'`.
-  * **`useRouter`** \- Enables navigation between routes within client components programmatically. There are [multiple methods](/docs/app/api-reference/functions/use-router#userouter) you can use.
+- **`useSearchParams`** \- Allows you to access the parameters of the current URL. For example, the search params for this URL `/dashboard/invoices?page=1&query=pending` would look like this: `{page: '1', query: 'pending'}`.
+- **`usePathname`** \- Lets you read the current URL's pathname. For example, for the route `/dashboard/invoices`, `usePathname` would return `'/dashboard/invoices'`.
+- **`useRouter`** \- Enables navigation between routes within client components programmatically. There are [multiple methods](/docs/app/api-reference/functions/use-router#userouter) you can use.
 
 Here's a quick overview of the implementation steps:
 
-  1. Capture the user's input.
-  2. Update the URL with the search params.
-  3. Keep the URL in sync with the input field.
-  4. Update the table to reflect the search query.
+1. Capture the user's input.
+2. Update the URL with the search params.
+3. Keep the URL in sync with the input field.
+4. Update the table to reflect the search query.
 
 ### 1\. Capture the user's input
 
 Go into the `<Search>` Component (`/app/ui/search.tsx`), and you'll notice:
 
-  * `"use client"` \- This is a Client Component, which means you can use event listeners and hooks.
-  * `<input>` \- This is the search input.
+- `"use client"` \- This is a Client Component, which means you can use event listeners and hooks.
+- `<input>` \- This is the search input.
 
 Create a new `handleSearch` function, and add an `onChange` listener to the
 `<input>` element. `onChange` will invoke `handleSearch` whenever the input
@@ -105,17 +104,15 @@ value changes.
 
 /app/ui/search.tsx
 
-    
-    
     'use client';
-     
+
     import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-     
+
     export default function Search({ placeholder }: { placeholder: string }) {
       function handleSearch(term: string) {
         console.log(term);
       }
-     
+
       return (
         <div className="relative flex flex-1 flex-shrink-0">
           <label htmlFor="search" className="sr-only">
@@ -147,16 +144,14 @@ variable:
 
 /app/ui/search.tsx
 
-    
-    
     'use client';
-     
+
     import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
     import { useSearchParams } from 'next/navigation';
-     
+
     export default function Search() {
       const searchParams = useSearchParams();
-     
+
       function handleSearch(term: string) {
         console.log(term);
       }
@@ -170,16 +165,14 @@ variable.
 
 /app/ui/search.tsx
 
-    
-    
     'use client';
-     
+
     import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
     import { useSearchParams } from 'next/navigation';
-     
+
     export default function Search() {
       const searchParams = useSearchParams();
-     
+
       function handleSearch(term: string) {
         const params = new URLSearchParams(searchParams);
       }
@@ -195,16 +188,14 @@ empty, you want to `delete` it:
 
 /app/ui/search.tsx
 
-    
-    
     'use client';
-     
+
     import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
     import { useSearchParams } from 'next/navigation';
-     
+
     export default function Search() {
       const searchParams = useSearchParams();
-     
+
       function handleSearch(term: string) {
         const params = new URLSearchParams(searchParams);
         if (term) {
@@ -224,18 +215,16 @@ Import `useRouter` and `usePathname` from `'next/navigation'`, and use the
 
 /app/ui/search.tsx
 
-    
-    
     'use client';
-     
+
     import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
     import { useSearchParams, usePathname, useRouter } from 'next/navigation';
-     
+
     export default function Search() {
       const searchParams = useSearchParams();
       const pathname = usePathname();
       const { replace } = useRouter();
-     
+
       function handleSearch(term: string) {
         const params = new URLSearchParams(searchParams);
         if (term) {
@@ -249,10 +238,10 @@ Import `useRouter` and `usePathname` from `'next/navigation'`, and use the
 
 Here's a breakdown of what's happening:
 
-  * `${pathname}` is the current path, in your case, `"/dashboard/invoices"`.
-  * As the user types into the search bar, `params.toString()` translates this input into a URL-friendly format.
-  * `replace(${pathname}?${params.toString()})` updates the URL with the user's search data. For example, `/dashboard/invoices?query=lee` if the user searches for "Lee".
-  * The URL is updated without reloading the page, thanks to Next.js's client-side navigation (which you learned about in the chapter on [navigating between pages](/learn/dashboard-app/navigating-between-pages).
+- `${pathname}` is the current path, in your case, `"/dashboard/invoices"`.
+- As the user types into the search bar, `params.toString()` translates this input into a URL-friendly format.
+- `replace(${pathname}?${params.toString()})` updates the URL with the user's search data. For example, `/dashboard/invoices?query=lee` if the user searches for "Lee".
+- The URL is updated without reloading the page, thanks to Next.js's client-side navigation (which you learned about in the chapter on [navigating between pages](/learn/dashboard-app/navigating-between-pages).
 
 ### 3\. Keeping the URL and input in sync
 
@@ -262,8 +251,6 @@ sharing, you can pass a `defaultValue` to input by reading from
 
 /app/ui/search.tsx
 
-    
-    
     <input
       className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
       placeholder={placeholder}
@@ -295,8 +282,6 @@ the `<Table>` component.
 
 /app/dashboard/invoices/page.tsx
 
-    
-    
     import Pagination from '@/app/ui/invoices/pagination';
     import Search from '@/app/ui/search';
     import Table from '@/app/ui/invoices/table';
@@ -304,7 +289,7 @@ the `<Table>` component.
     import { lusitana } from '@/app/ui/fonts';
     import { Suspense } from 'react';
     import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
-     
+
     export default async function Page({
       searchParams,
     }: {
@@ -315,7 +300,7 @@ the `<Table>` component.
     }) {
       const query = searchParams?.query || '';
       const currentPage = Number(searchParams?.page) || 1;
-     
+
       return (
         <div className="w-full">
           <div className="flex w-full items-center justify-between">
@@ -341,8 +326,6 @@ function which returns the invoices that match the query.
 
 /app/ui/invoices/table.tsx
 
-    
-    
     // ...
     export default async function InvoicesTable({
       query,
@@ -366,13 +349,11 @@ will be returned.
 > Whether you use one or the other depends on whether you're working on the
 > client or the server.
 >
->   * `<Search>` is a Client Component, so you used the `useSearchParams()`
-> hook to access the params from the client.
->   * `<Table>` is a Server Component that fetches its own data, so you can
-> pass the `searchParams` prop from the page to the component.
->
+> - `<Search>` is a Client Component, so you used the `useSearchParams()`
+>   hook to access the params from the client.
+> - `<Table>` is a Server Component that fetches its own data, so you can
+>   pass the `searchParams` prop from the page to the component.
 
->
 > As a general rule, if you want to read the params from the client, use the
 > `useSearchParams()` hook as this avoids having to go back to the server.
 
@@ -385,11 +366,9 @@ Inside your `handleSearch` function, add the following `console.log`:
 
 /app/ui/search.tsx
 
-    
-    
     function handleSearch(term: string) {
       console.log(`Searching... ${term}`);
-     
+
       const params = new URLSearchParams(searchParams);
       if (term) {
         params.set('query', term);
@@ -404,8 +383,6 @@ is happening?
 
 Dev Tools Console
 
-    
-    
     Searching... E
     Searching... Em
     Searching... Emi
@@ -422,13 +399,12 @@ user has stopped typing.
 
 > **How Debouncing Works:**
 >
->   1. **Trigger Event** : When an event that should be debounced (like a
-> keystroke in the search box) occurs, a timer starts.
->   2. **Wait** : If a new event occurs before the timer expires, the timer is
-> reset.
->   3. **Execution** : If the timer reaches the end of its countdown, the
-> debounced function is executed.
->
+> 1. **Trigger Event** : When an event that should be debounced (like a
+>    keystroke in the search box) occurs, a timer starts.
+> 2. **Wait** : If a new event occurs before the timer expires, the timer is
+>    reset.
+> 3. **Execution** : If the timer reaches the end of its countdown, the
+>    debounced function is executed.
 
 You can implement debouncing in a few ways, including manually creating your
 own debounce function. To keep things simple, we'll use a library called
@@ -438,23 +414,19 @@ Install `use-debounce`:
 
 Terminal
 
-    
-    
     npm i use-debounce
 
 In your `<Search>` Component, import a function called `useDebouncedCallback`:
 
 /app/ui/search.tsx
 
-    
-    
     // ...
     import { useDebouncedCallback } from 'use-debounce';
-     
+
     // Inside the Search Component...
     const handleSearch = useDebouncedCallback((term) => {
       console.log(`Searching... ${term}`);
-     
+
       const params = new URLSearchParams(searchParams);
       if (term) {
         params.set('query', term);
@@ -472,8 +444,6 @@ should see the following:
 
 Dev Tools Console
 
-    
-    
     Searching... Emil
 
 By debouncing, you can reduce the number of requests sent to your database,
@@ -499,11 +469,9 @@ In `/dashboard/invoices/page.tsx`, import a new function called
 
 /app/dashboard/invoices/page.tsx
 
-    
-    
     // ...
     import { fetchInvoicesPages } from '@/app/lib/data';
-     
+
     export default async function Page({
       searchParams,
     }: {
@@ -514,9 +482,9 @@ In `/dashboard/invoices/page.tsx`, import a new function called
     }) {
       const query = searchParams?.query || '';
       const currentPage = Number(searchParams?.page) || 1;
-     
+
       const totalPages = await fetchInvoicesPages(query);
-     
+
       return (
         // ...
       );
@@ -530,10 +498,8 @@ Next, pass the `totalPages` prop to the `<Pagination/>` component:
 
 /app/dashboard/invoices/page.tsx
 
-    
-    
     // ...
-     
+
     export default async function Page({
       searchParams,
     }: {
@@ -544,9 +510,9 @@ Next, pass the `totalPages` prop to the `<Pagination/>` component:
     }) {
       const query = searchParams?.query || '';
       const currentPage = Number(searchParams?.page) || 1;
-     
+
       const totalPages = await fetchInvoicesPages(query);
-     
+
       return (
         <div className="w-full">
           <div className="flex w-full items-center justify-between">
@@ -574,21 +540,19 @@ application will break temporarily as you haven't implemented the
 
 /app/ui/invoices/pagination.tsx
 
-    
-    
     'use client';
-     
+
     import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
     import clsx from 'clsx';
     import Link from 'next/link';
     import { generatePagination } from '@/app/lib/utils';
     import { usePathname, useSearchParams } from 'next/navigation';
-     
+
     export default function Pagination({ totalPages }: { totalPages: number }) {
       const pathname = usePathname();
       const searchParams = useSearchParams();
       const currentPage = Number(searchParams.get('page')) || 1;
-     
+
       // ...
     }
 
@@ -598,35 +562,33 @@ the new page number, and `pathName` to create the URL string.
 
 /app/ui/invoices/pagination.tsx
 
-    
-    
     'use client';
-     
+
     import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
     import clsx from 'clsx';
     import Link from 'next/link';
     import { generatePagination } from '@/app/lib/utils';
     import { usePathname, useSearchParams } from 'next/navigation';
-     
+
     export default function Pagination({ totalPages }: { totalPages: number }) {
       const pathname = usePathname();
       const searchParams = useSearchParams();
       const currentPage = Number(searchParams.get('page')) || 1;
-     
+
       const createPageURL = (pageNumber: number | string) => {
         const params = new URLSearchParams(searchParams);
         params.set('page', pageNumber.toString());
         return `${pathname}?${params.toString()}`;
       };
-     
+
       // ...
     }
 
 Here's a breakdown of what's happening:
 
-  * `createPageURL` creates an instance of the current search parameters.
-  * Then, it updates the "page" parameter to the provided page number.
-  * Finally, it constructs the full URL using the pathname and updated search parameters.
+- `createPageURL` creates an instance of the current search parameters.
+- Then, it updates the "page" parameter to the provided page number.
+- Finally, it constructs the full URL using the pathname and updated search parameters.
 
 The rest of the `<Pagination>` component deals with styling and different
 states (first, last, active, disabled, etc). We won't go into detail for this
@@ -639,19 +601,17 @@ number to 1. You can do this by updating the `handleSearch` function in your
 
 /app/ui/search.tsx
 
-    
-    
     'use client';
-     
+
     import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
     import { usePathname, useRouter, useSearchParams } from 'next/navigation';
     import { useDebouncedCallback } from 'use-debounce';
-     
+
     export default function Search({ placeholder }: { placeholder: string }) {
       const searchParams = useSearchParams();
       const { replace } = useRouter();
       const pathname = usePathname();
-     
+
       const handleSearch = useDebouncedCallback((term) => {
         const params = new URLSearchParams(searchParams);
         params.set('page', '1');
@@ -662,7 +622,6 @@ number to 1. You can do this by updating the `handleSearch` function in your
         }
         replace(`${pathname}?${params.toString()}`);
       }, 300);
-     
 
 ## Summary
 
@@ -671,9 +630,9 @@ Params and Next.js APIs.
 
 To summarize, in this chapter:
 
-  * You've handled search and pagination with URL search parameters instead of client state.
-  * You've fetched data on the server.
-  * You're using the `useRouter` router hook for smoother, client-side transitions.
+- You've handled search and pagination with URL search parameters instead of client state.
+- You've fetched data on the server.
+- You're using the `useRouter` router hook for smoother, client-side transitions.
 
 These patterns are different from what you may be used to when working with
 client-side React, but hopefully, you now better understand the benefits of
@@ -694,4 +653,3 @@ Learn how to mutate data with Server Actions.
 [Start Chapter 12](/learn/dashboard-app/mutating-data)
 
 Was this helpful?
-

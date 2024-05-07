@@ -1,6 +1,7 @@
 ---
-title: Chapter 7: Fetching Data
+title: Chapter 7
 description: Fetching Data
+type: Chapter
 ---
 
 Now that you've created and seeded your database, let's discuss the different
@@ -26,8 +27,8 @@ How to implement parallel data fetching using a JavaScript Pattern.
 APIs are an intermediary layer between your application code and database.
 There are a few cases where you might use an API:
 
-  * If you're using 3rd party services that provide an API.
-  * If you're fetching data from the client, you want to have an API layer that runs on the server to avoid exposing your database secrets to the client.
+- If you're using 3rd party services that provide an API.
+- If you're fetching data from the client, you want to have an API layer that runs on the server to avoid exposing your database secrets to the client.
 
 In Next.js, you can create API endpoints using [Route
 Handlers](/docs/app/building-your-application/routing/route-handlers).
@@ -42,8 +43,8 @@ postgres/using-an-orm#) like [Prisma](https://www.prisma.io/).
 
 There are a few cases where you have to write database queries:
 
-  * When creating your API endpoints, you need to write logic to interact with your database.
-  * If you are using React Server Components (fetching data on the server), you can skip the API layer, and query your database directly without risking exposing your database secrets to the client.
+- When creating your API endpoints, you need to write logic to interact with your database.
+- If you are using React Server Components (fetching data on the server), you can skip the API layer, and query your database directly without risking exposing your database secrets to the client.
 
 Let's learn more about React Server Components.
 
@@ -53,9 +54,9 @@ By default, Next.js applications use **React Server Components**. Fetching
 data with Server Components is a relatively new approach and there are a few
 benefits of using them:
 
-  * Server Components support promises, providing a simpler solution for asynchronous tasks like data fetching. You can use `async/await` syntax without reaching out for `useEffect`, `useState` or data fetching libraries.
-  * Server Components execute on the server, so you can keep expensive data fetches and logic on the server and only send the result to the client.
-  * As mentioned before, since Server Components execute on the server, you can query the database directly without an additional API layer.
+- Server Components support promises, providing a simpler solution for asynchronous tasks like data fetching. You can use `async/await` syntax without reaching out for `useEffect`, `useState` or data fetching libraries.
+- Server Components execute on the server, so you can keep expensive data fetches and logic on the server and only send the result to the client.
+- As mentioned before, since Server Components execute on the server, you can query the database directly without an additional API layer.
 
 ### Using SQL
 
@@ -63,10 +64,10 @@ For your dashboard project, you'll write database queries using the [Vercel
 Postgres SDK](https://vercel.com/docs/storage/vercel-postgres/sdk) and SQL.
 There are a few reasons why we'll be using SQL:
 
-  * SQL is the industry standard for querying relational databases (e.g. ORMs generate SQL under the hood).
-  * Having a basic understanding of SQL can help you understand the fundamentals of relational databases, allowing you to apply your knowledge to other tools.
-  * SQL is versatile, allowing you to fetch and manipulate specific data.
-  * The Vercel Postgres SDK provides protection against [SQL injections](https://vercel.com/docs/storage/vercel-postgres/sdk#preventing-sql-injections).
+- SQL is the industry standard for querying relational databases (e.g. ORMs generate SQL under the hood).
+- Having a basic understanding of SQL can help you understand the fundamentals of relational databases, allowing you to apply your knowledge to other tools.
+- SQL is versatile, allowing you to fetch and manipulate specific data.
+- The Vercel Postgres SDK provides protection against [SQL injections](https://vercel.com/docs/storage/vercel-postgres/sdk#preventing-sql-injections).
 
 Don't worry if you haven't used SQL before - we have provided the queries for
 you.
@@ -77,10 +78,8 @@ Go to `/app/lib/data.ts`, here you'll see that we're importing the
 
 /app/lib/data.ts
 
-    
-    
     import { sql } from '@vercel/postgres';
-     
+
     // ...
 
 You can call `sql` inside any Server Component. But to allow you to navigate
@@ -99,13 +98,11 @@ following code, and spend some time exploring it:
 
 /app/dashboard/page.tsx
 
-    
-    
     import { Card } from '@/app/ui/dashboard/cards';
     import RevenueChart from '@/app/ui/dashboard/revenue-chart';
     import LatestInvoices from '@/app/ui/dashboard/latest-invoices';
     import { lusitana } from '@/app/ui/fonts';
-     
+
     export default async function Page() {
       return (
         <main>
@@ -132,8 +129,8 @@ following code, and spend some time exploring it:
 
 In the code above:
 
-  * Page is an **async** component. This allows you to use `await` to fetch data.
-  * There are also 3 components which receive data: `<Card>`, `<RevenueChart>`, and `<LatestInvoices>`. They are currently commented out to prevent the application from erroring.
+- Page is an **async** component. This allows you to use `await` to fetch data.
+- There are also 3 components which receive data: `<Card>`, `<RevenueChart>`, and `<LatestInvoices>`. They are currently commented out to prevent the application from erroring.
 
 ## Fetching data for **`<RevenueChart/>`**
 
@@ -142,14 +139,12 @@ function from `data.ts` and call it inside your component:
 
 /app/dashboard/page.tsx
 
-    
-    
     import { Card } from '@/app/ui/dashboard/cards';
     import RevenueChart from '@/app/ui/dashboard/revenue-chart';
     import LatestInvoices from '@/app/ui/dashboard/latest-invoices';
     import { lusitana } from '@/app/ui/fonts';
     import { fetchRevenue } from '@/app/lib/data';
-     
+
     export default async function Page() {
       const revenue = await fetchRevenue();
       // ...
@@ -161,7 +156,7 @@ Check your localhost, you should be able to see a chart that uses `revenue`
 data.
 
 ![Revenue chart showing the total revenue for the last 12
-months](/_next/image?url=%2Flearn%2Flight%2Frecent-
+months](/\_next/image?url=%2Flearn%2Flight%2Frecent-
 revenue.png&w=1920&q=75)![Revenue chart showing the total revenue for the last
 12 months](/_next/image?url=%2Flearn%2Fdark%2Frecent-revenue.png&w=1920&q=75)
 
@@ -183,8 +178,6 @@ from your `data.ts` file:
 
 /app/lib/data.ts
 
-    
-    
     // Fetch the last 5 invoices, sorted by date
     const data = await sql<LatestInvoiceRaw>`
       SELECT invoices.amount, customers.name, customers.image_url, customers.email
@@ -197,14 +190,12 @@ In your page, import the `fetchLatestInvoices` function:
 
 /app/dashboard/page.tsx
 
-    
-    
     import { Card } from '@/app/ui/dashboard/cards';
     import RevenueChart from '@/app/ui/dashboard/revenue-chart';
     import LatestInvoices from '@/app/ui/dashboard/latest-invoices';
     import { lusitana } from '@/app/ui/fonts';
     import { fetchRevenue, fetchLatestInvoices } from '@/app/lib/data';
-     
+
     export default async function Page() {
       const revenue = await fetchRevenue();
       const latestInvoices = await fetchLatestInvoices();
@@ -220,7 +211,7 @@ from the database. Hopefully, you're beginning to see the advantages of
 querying your database directly!
 
 ![Latest invoices component alongside the revenue
-chart](/_next/image?url=%2Flearn%2Flight%2Flatest-
+chart](/\_next/image?url=%2Flearn%2Flight%2Flatest-
 invoices.png&w=1920&q=75)![Latest invoices component alongside the revenue
 chart](/_next/image?url=%2Flearn%2Fdark%2Flatest-invoices.png&w=1920&q=75)
 
@@ -229,17 +220,15 @@ chart](/_next/image?url=%2Flearn%2Fdark%2Flatest-invoices.png&w=1920&q=75)
 Now it's your turn to fetch data for the `<Card>` components. The cards will
 display the following data:
 
-  * Total amount of invoices collected.
-  * Total amount of invoices pending.
-  * Total number of invoices.
-  * Total number of customers.
+- Total amount of invoices collected.
+- Total amount of invoices pending.
+- Total number of invoices.
+- Total number of customers.
 
 Again, you might be tempted to fetch all the invoices and customers, and use
 JavaScript to manipulate the data. For example, you could use `Array.length`
 to get the total number of invoices and customers:
 
-    
-    
     const totalInvoices = allInvoices.length;
     const totalCustomers = allCustomers.length;
 
@@ -249,8 +238,6 @@ the request. This is the SQL alternative:
 
 /app/lib/data.ts
 
-    
-    
     const invoiceCountPromise = sql`SELECT COUNT(*) FROM invoices`;
     const customerCountPromise = sql`SELECT COUNT(*) FROM customers`;
 
@@ -259,9 +246,8 @@ to destructure the values returned from the function.
 
 > **Hint:**
 >
->   * Check the card components to see what data they need.
->   * Check the `data.ts` file to see what the function returns.
->
+> - Check the card components to see what data they need.
+> - Check the `data.ts` file to see what the function returns.
 
 Once you're ready, expand the toggle below for the final code:
 
@@ -271,15 +257,15 @@ Great! You've now fetched all the data for the dashboard overview page. Your
 page should look like this:
 
 ![Dashboard page with all the data
-fetched](/_next/image?url=%2Flearn%2Flight%2Fcomplete-
+fetched](/\_next/image?url=%2Flearn%2Flight%2Fcomplete-
 dashboard.png&w=1920&q=75)![Dashboard page with all the data
-fetched](/_next/image?url=%2Flearn%2Fdark%2Fcomplete-
+fetched](/\_next/image?url=%2Flearn%2Fdark%2Fcomplete-
 dashboard.png&w=1920&q=75)
 
 However... there are two things you need to be aware of:
 
-  1. The data requests are unintentionally blocking each other, creating a **request waterfall**.
-  2. By default, Next.js **prerenders** routes to improve performance, this is called **Static Rendering**. So if your data changes, it won't be reflected in your dashboard.
+1. The data requests are unintentionally blocking each other, creating a **request waterfall**.
+2. By default, Next.js **prerenders** routes to improve performance, this is called **Static Rendering**. So if your data changes, it won't be reflected in your dashboard.
 
 Let's discuss number 1 in this chapter, then look into detail at number 2 in
 the next chapter.
@@ -291,9 +277,9 @@ completion of previous requests. In the case of data fetching, each request
 can only begin once the previous request has returned data.
 
 ![Diagram showing time with sequential data fetching and parallel data
-fetching](/_next/image?url=%2Flearn%2Flight%2Fsequential-parallel-data-
+fetching](/\_next/image?url=%2Flearn%2Flight%2Fsequential-parallel-data-
 fetching.png&w=3840&q=75)![Diagram showing time with sequential data fetching
-and parallel data fetching](/_next/image?url=%2Flearn%2Fdark%2Fsequential-
+and parallel data fetching](/\_next/image?url=%2Flearn%2Fdark%2Fsequential-
 parallel-data-fetching.png&w=3840&q=75)
 
 For example, we need to wait for `fetchRevenue()` to execute before
@@ -301,8 +287,6 @@ For example, we need to wait for `fetchRevenue()` to execute before
 
 /app/dashboard/page.tsx
 
-    
-    
     const revenue = await fetchRevenue();
     const latestInvoices = await fetchLatestInvoices(); // wait for fetchRevenue() to finish
     const {
@@ -336,8 +320,6 @@ using `Promise.all()` in the `fetchCardData()` function:
 
 /app/lib/data.js
 
-    
-    
     export async function fetchCardData() {
       try {
         const invoiceCountPromise = sql`SELECT COUNT(*) FROM invoices`;
@@ -346,7 +328,7 @@ using `Promise.all()` in the `fetchCardData()` function:
              SUM(CASE WHEN status = 'paid' THEN amount ELSE 0 END) AS "paid",
              SUM(CASE WHEN status = 'pending' THEN amount ELSE 0 END) AS "pending"
              FROM invoices`;
-     
+
         const data = await Promise.all([
           invoiceCountPromise,
           customerCountPromise,
@@ -358,8 +340,8 @@ using `Promise.all()` in the `fetchCardData()` function:
 
 By using this pattern, you can:
 
-  * Start executing all data fetches at the same time, which can lead to performance gains.
-  * Use a native JavaScript pattern that can be applied to any library or framework.
+- Start executing all data fetches at the same time, which can lead to performance gains.
+- Use a native JavaScript pattern that can be applied to any library or framework.
 
 However, there is one **disadvantage** of relying only on this JavaScript
 pattern: what happens if one data request is slower than all the others?
@@ -380,4 +362,3 @@ Streaming.
 [Start Chapter 8](/learn/dashboard-app/static-and-dynamic-rendering)
 
 Was this helpful?
-

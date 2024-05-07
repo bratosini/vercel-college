@@ -1,6 +1,8 @@
 ---
 title: Chapter 6: Setting Up Your Database
 description: Setting Up Your Database
+type: Chapter
+
 ---
 
 Before you can continue working on your dashboard, you'll need some data. In
@@ -33,10 +35,9 @@ a-repo).
 
 > **Good to know:**
 >
->   * You can also use other Git provider like GitLab or Bitbucket.
->   * If you're new to GitHub, we recommend the [GitHub Desktop
-> App](https://desktop.github.com/) for a simplified development workflow.
->
+> - You can also use other Git provider like GitLab or Bitbucket.
+> - If you're new to GitHub, we recommend the [GitHub Desktop
+>   App](https://desktop.github.com/) for a simplified development workflow.
 
 ## Create a Vercel account
 
@@ -51,26 +52,26 @@ GitHub repository you've just created:
 
 ![Screenshot of Vercel Dashboard, showing the import project screen with a
 list of the user's GitHub
-Repositories](/_next/image?url=%2Flearn%2Flight%2Fimport-git-
+Repositories](/\_next/image?url=%2Flearn%2Flight%2Fimport-git-
 repo.png&w=1920&q=75)![Screenshot of Vercel Dashboard, showing the import
 project screen with a list of the user's GitHub
-Repositories](/_next/image?url=%2Flearn%2Fdark%2Fimport-git-
+Repositories](/\_next/image?url=%2Flearn%2Fdark%2Fimport-git-
 repo.png&w=1920&q=75)
 
 Name your project and click **Deploy**.
 
 ![Deployment screen showing the project name field and a deploy
-button](/_next/image?url=%2Flearn%2Flight%2Fconfigure-
+button](/\_next/image?url=%2Flearn%2Flight%2Fconfigure-
 project.png&w=1920&q=75)![Deployment screen showing the project name field and
-a deploy button](/_next/image?url=%2Flearn%2Fdark%2Fconfigure-
+a deploy button](/\_next/image?url=%2Flearn%2Fdark%2Fconfigure-
 project.png&w=1920&q=75)
 
 Hooray! 🎉 Your project is now deployed.
 
 ![Project overview screen showing the project name, domain, and deployment
-status](/_next/image?url=%2Flearn%2Flight%2Fdeployed-
+status](/\_next/image?url=%2Flearn%2Flight%2Fdeployed-
 project.png&w=1920&q=75)![Project overview screen showing the project name,
-domain, and deployment status](/_next/image?url=%2Flearn%2Fdark%2Fdeployed-
+domain, and deployment status](/\_next/image?url=%2Flearn%2Fdark%2Fdeployed-
 project.png&w=1920&q=75)
 
 By connecting your GitHub repository, whenever you push changes to your
@@ -87,7 +88,7 @@ Next, to set up a database, click **Continue to Dashboard** and select the
 **Create New** → **Postgres** → **Continue**.
 
 ![Connect Store screen showing the Postgres option along with KV, Blob and
-Edge Config](/_next/image?url=%2Flearn%2Flight%2Fcreate-
+Edge Config](/\_next/image?url=%2Flearn%2Flight%2Fcreate-
 database.png&w=1920&q=75)![Connect Store screen showing the Postgres option
 along with KV, Blob and Edge
 Config](/_next/image?url=%2Flearn%2Fdark%2Fcreate-database.png&w=1920&q=75)
@@ -101,7 +102,7 @@ database in the same region or close to your application code, you can reduce
 US/docs/Web/Performance/Understanding_latency) for data requests.
 
 ![Database creation modal showing the database name and
-region](/_next/image?url=%2Flearn%2Flight%2Fdatabase-
+region](/\_next/image?url=%2Flearn%2Flight%2Fdatabase-
 region.png&w=1920&q=75)![Database creation modal showing the database name and
 region](/_next/image?url=%2Flearn%2Fdark%2Fdatabase-region.png&w=1920&q=75)
 
@@ -114,9 +115,9 @@ Once connected, navigate to the `.env.local` tab, click **Show secret** and
 **Copy Snippet**. Make sure you reveal the secrets before copying them.
 
 ![The .env.local tab showing the hidden database
-secrets](/_next/image?url=%2Flearn%2Flight%2Fdatabase-
+secrets](/\_next/image?url=%2Flearn%2Flight%2Fdatabase-
 dashboard.png&w=1920&q=75)![The .env.local tab showing the hidden database
-secrets](/_next/image?url=%2Flearn%2Fdark%2Fdatabase-
+secrets](/\_next/image?url=%2Flearn%2Fdark%2Fdatabase-
 dashboard.png&w=1920&q=75)
 
 Navigate to your code editor and rename the `.env.example` file to **`.env`**.
@@ -146,8 +147,6 @@ Next, in your `package.json` file, add the following line to your scripts:
 
 /package.json
 
-    
-    
     "scripts": {
       "build": "next build",
       "dev": "next dev",
@@ -162,22 +161,21 @@ terminal to let you know the script is running.
 
 > **Troubleshooting** :
 >
->   * Make sure to reveal your database secrets before copying it into your
-> `.env` file.
->   * The script uses `bcrypt` to hash the user's password, if `bcrypt` isn't
-> compatible with your environment, you can update the script to use
-> [`bcryptjs`](https://www.npmjs.com/package/bcryptjs) instead.
->   * If you run into any issues while seeding your database and want to run
-> the script again, you can drop any existing tables by running `DROP TABLE
-> tablename` in your database query interface. See the executing queries
-> section below for more details. But be careful, this command will delete the
-> tables and all their data. It's ok to do this with your example app since
-> you're working with placeholder data, but you shouldn't run this command in
-> a production app.
->   * If you continue to experience issues while seeding your Vercel Postgres
-> database, please open a [discussion on
-> GitHub](https://github.com/vercel/next-learn/issues).
->
+> - Make sure to reveal your database secrets before copying it into your
+>   `.env` file.
+> - The script uses `bcrypt` to hash the user's password, if `bcrypt` isn't
+>   compatible with your environment, you can update the script to use
+>   [`bcryptjs`](https://www.npmjs.com/package/bcryptjs) instead.
+> - If you run into any issues while seeding your database and want to run
+>   the script again, you can drop any existing tables by running `DROP TABLE
+tablename` in your database query interface. See the executing queries
+>   section below for more details. But be careful, this command will delete the
+>   tables and all their data. It's ok to do this with your example app since
+>   you're working with placeholder data, but you shouldn't run this command in
+>   a production app.
+> - If you continue to experience issues while seeding your Vercel Postgres
+>   database, please open a [discussion on
+>   GitHub](https://github.com/vercel/next-learn/issues).
 
 ## Exploring your database
 
@@ -188,7 +186,7 @@ In this section, you'll find the four new tables: users, customers, invoices,
 and revenue.
 
 ![Database screen showing dropdown list with four tables: users, customers,
-invoices, and revenue](/_next/image?url=%2Flearn%2Flight%2Fdatabase-
+invoices, and revenue](/\_next/image?url=%2Flearn%2Flight%2Fdatabase-
 tables.png&w=2048&q=75)![Database screen showing dropdown list with four
 tables: users, customers, invoices, and
 revenue](/_next/image?url=%2Flearn%2Fdark%2Fdatabase-tables.png&w=2048&q=75)
@@ -205,8 +203,6 @@ will delete "customers" table along with all its data - **_so be careful_**!
 Let's run your first database query. Paste and run the following SQL code into
 the Vercel interface:
 
-    
-    
     SELECT invoices.amount, customers.name
     FROM invoices
     JOIN customers ON invoices.customer_id = customers.id
@@ -229,4 +225,3 @@ including using APIs, SQL, and alternatives.
 [Start Chapter 7](/learn/dashboard-app/fetching-data)
 
 Was this helpful?
-

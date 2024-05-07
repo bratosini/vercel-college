@@ -1,6 +1,7 @@
 ---
-title: Chapter 13: Handling Errors
+title: Chapter 13
 description: Handling Errors
+type: Chapter
 ---
 
 In the previous chapter, you learned how to mutate data using Server Actions.
@@ -42,11 +43,9 @@ You can do this by throwing an error earlier. For example, in the
 
 /app/lib/actions.ts
 
-    
-    
     export async function deleteInvoice(id: string) {
       throw new Error('Failed to Delete Invoice');
-     
+
       // Unreachable code block
       try {
         await sql`DELETE FROM invoices WHERE id = ${id}`;
@@ -77,12 +76,10 @@ and paste the following code:
 
 /dashboard/invoices/error.tsx
 
-    
-    
     'use client';
-     
+
     import { useEffect } from 'react';
-     
+
     export default function Error({
       error,
       reset,
@@ -94,7 +91,7 @@ and paste the following code:
         // Optionally log the error to an error reporting service
         console.error(error);
       }, [error]);
-     
+
       return (
         <main className="flex h-full flex-col items-center justify-center">
           <h2 className="text-center">Something went wrong!</h2>
@@ -113,10 +110,10 @@ and paste the following code:
 
 There are a few things you'll notice about the code above:
 
-  * **" use client"** \- `error.tsx` needs to be a Client Component.
-  * It accepts two props:
-    * `error`: This object is an instance of JavaScript's native [`Error`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) object.
-    * `reset`: This is a function to reset the error boundary. When executed, the function will try to re-render the route segment.
+- **" use client"** \- `error.tsx` needs to be a Client Component.
+- It accepts two props:
+  - `error`: This object is an instance of JavaScript's native [`Error`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) object.
+  - `reset`: This is a function to reset the error boundary. When executed, the function will try to re-render the route segment.
 
 When you try to delete an invoice again, you should see the following UI:
 
@@ -148,13 +145,11 @@ You can confirm that the resource hasn't been found by going into your
 
 /app/lib/data.ts
 
-    
-    
     export async function fetchInvoiceById(id: string) {
       noStore();
       try {
         // ...
-     
+
         console.log(invoice); // Invoice is an empty array []
         return invoice[0];
       } catch (error) {
@@ -172,23 +167,21 @@ exist:
 
 /dashboard/invoices/[id]/edit/page.tsx
 
-    
-    
     import { fetchInvoiceById, fetchCustomers } from '@/app/lib/data';
     import { updateInvoice } from '@/app/lib/actions';
     import { notFound } from 'next/navigation';
-     
+
     export default async function Page({ params }: { params: { id: string } }) {
       const id = params.id;
       const [invoice, customers] = await Promise.all([
         fetchInvoiceById(id),
         fetchCustomers(),
       ]);
-     
+
       if (!invoice) {
         notFound();
       }
-     
+
       // ...
     }
 
@@ -197,7 +190,7 @@ To show an error UI to the user. Create a `not-found.tsx` file inside the
 `/edit` folder.
 
 ![The not-found.tsx file inside the edit
-folder](/_next/image?url=%2Flearn%2Flight%2Fnot-found-
+folder](/\_next/image?url=%2Flearn%2Flight%2Fnot-found-
 file.png&w=3840&q=75)![The not-found.tsx file inside the edit
 folder](/_next/image?url=%2Flearn%2Fdark%2Fnot-found-file.png&w=3840&q=75)
 
@@ -205,11 +198,9 @@ Then, inside the `not-found.tsx` file, paste the following the code:
 
 /dashboard/invoices/[id]/edit/not-found.tsx
 
-    
-    
     import Link from 'next/link';
     import { FaceFrownIcon } from '@heroicons/react/24/outline';
-     
+
     export default function NotFound() {
       return (
         <main className="flex h-full flex-col items-center justify-center gap-2">
@@ -228,7 +219,7 @@ Then, inside the `not-found.tsx` file, paste the following the code:
 
 Refresh the route, and you should now see the following UI:
 
-![404 Not Found Page](/_next/image?url=%2Flearn%2Flight%2F404-not-found-
+![404 Not Found Page](/\_next/image?url=%2Flearn%2Flight%2F404-not-found-
 page.png&w=1920&q=75)![404 Not Found
 Page](/_next/image?url=%2Flearn%2Fdark%2F404-not-found-page.png&w=1920&q=75)
 
@@ -241,10 +232,10 @@ errors!
 To learn more about error handling in Next.js, check out the following
 documentation:
 
-  * [Error Handling](https://nextjs.org/docs/app/building-your-application/routing/error-handling)
-  * [`error.js` API Reference](https://nextjs.org/docs/app/api-reference/file-conventions/error)
-  * [`notFound()` API Reference](https://nextjs.org/docs/app/api-reference/functions/not-found)
-  * [`not-found.js` API Reference](https://nextjs.org/docs/app/api-reference/file-conventions/not-found)
+- [Error Handling](https://nextjs.org/docs/app/building-your-application/routing/error-handling)
+- [`error.js` API Reference](https://nextjs.org/docs/app/api-reference/file-conventions/error)
+- [`notFound()` API Reference](https://nextjs.org/docs/app/api-reference/functions/not-found)
+- [`not-found.js` API Reference](https://nextjs.org/docs/app/api-reference/file-conventions/not-found)
 
 13
 
@@ -262,4 +253,3 @@ about server-side form validation and improving accessibility.
 [Start Chapter 14](/learn/dashboard-app/improving-accessibility)
 
 Was this helpful?
-

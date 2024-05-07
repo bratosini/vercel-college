@@ -1,6 +1,7 @@
 ---
-title: Chapter 5: Navigating Between Pages
+title: Chapter 5
 description: Navigating Between Pages
+type: Chapter
 ---
 
 In the previous chapter, you created the dashboard layout and pages. Now,
@@ -39,17 +40,15 @@ reference/components/link). Then, replace the `<a>` tag with `<Link>`:
 
 /app/ui/dashboard/nav-links.tsx
 
-    
-    
     import {
       UserGroupIcon,
       HomeIcon,
       DocumentDuplicateIcon,
     } from '@heroicons/react/24/outline';
     import Link from 'next/link';
-     
+
     // ...
-     
+
     export default function NavLinks() {
       return (
         <>
@@ -113,10 +112,8 @@ the top of the file, then import `usePathname()` from `next/navigation`:
 
 /app/ui/dashboard/nav-links.tsx
 
-    
-    
     'use client';
-     
+
     import {
       UserGroupIcon,
       HomeIcon,
@@ -124,7 +121,7 @@ the top of the file, then import `usePathname()` from `next/navigation`:
     } from '@heroicons/react/24/outline';
     import Link from 'next/link';
     import { usePathname } from 'next/navigation';
-     
+
     // ...
 
 Next, assign the path to a variable called `pathname` inside your `<NavLinks
@@ -132,8 +129,6 @@ Next, assign the path to a variable called `pathname` inside your `<NavLinks
 
 /app/ui/dashboard/nav-links.tsx
 
-    
-    
     export default function NavLinks() {
       const pathname = usePathname();
       // ...
@@ -148,10 +143,8 @@ Here's the final code for `nav-links.tsx`:
 
 /app/ui/dashboard/nav-links.tsx
 
-    
-    
     'use client';
-     
+
     import {
       UserGroupIcon,
       HomeIcon,
@@ -160,12 +153,12 @@ Here's the final code for `nav-links.tsx`:
     import Link from 'next/link';
     import { usePathname } from 'next/navigation';
     import clsx from 'clsx';
-     
+
     // ...
-     
+
     export default function NavLinks() {
       const pathname = usePathname();
-     
+
       return (
         <>
           {links.map((link) => {
@@ -209,4 +202,3 @@ Let's create a database to start fetching real data!
 [Start Chapter 6](/learn/dashboard-app/setting-up-your-database)
 
 Was this helpful?
-

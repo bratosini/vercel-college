@@ -1,6 +1,7 @@
 ---
-title: Chapter 1: Getting Started
+title: Chapter 1
 description: Getting Started
+type: Chapter
 ---
 
 ## Creating a new project
@@ -13,8 +14,6 @@ you'd like to keep your project, and run the following command:
 
 Terminal
 
-    
-    
     npx create-next-app@latest nextjs-dashboard --use-npm --example "https://github.com/vercel/next-learn/tree/main/dashboard/starter-example"
 
 This command uses [`create-next-app`](/docs/app/api-reference/create-next-
@@ -37,8 +36,6 @@ After installation, open the project in your code editor and navigate to
 
 Terminal
 
-    
-    
     cd nextjs-dashboard
 
 Let's spend some time exploring the project.
@@ -49,18 +46,18 @@ You'll notice that the project has the following folder structure:
 
 ![Folder structure of the dashboard project, showing the main folders and
 files: app, public, and config
-files.](/_next/image?url=%2Flearn%2Flight%2Flearn-folder-
+files.](/\_next/image?url=%2Flearn%2Flight%2Flearn-folder-
 structure.png&w=3840&q=75)![Folder structure of the dashboard project, showing
 the main folders and files: app, public, and config
-files.](/_next/image?url=%2Flearn%2Fdark%2Flearn-folder-
+files.](/\_next/image?url=%2Flearn%2Fdark%2Flearn-folder-
 structure.png&w=3840&q=75)
 
-  * **`/app`** : Contains all the routes, components, and logic for your application, this is where you'll be mostly working from.
-  * **`/app/lib`** : Contains functions used in your application, such as reusable utility functions and data fetching functions.
-  * **`/app/ui`** : Contains all the UI components for your application, such as cards, tables, and forms. To save time, we've pre-styled these components for you.
-  * **`/public`** : Contains all the static assets for your application, such as images.
-  * **`/scripts`** : Contains a seeding script that you'll use to populate your database in a later chapter.
-  * **Config Files** : You'll also notice config files such as `next.config.js` at the root of your application. Most of these files are created and pre-configured when you start a new project using `create-next-app`. You will not need to modify them in this course.
+- **`/app`** : Contains all the routes, components, and logic for your application, this is where you'll be mostly working from.
+- **`/app/lib`** : Contains functions used in your application, such as reusable utility functions and data fetching functions.
+- **`/app/ui`** : Contains all the UI components for your application, such as cards, tables, and forms. To save time, we've pre-styled these components for you.
+- **`/public`** : Contains all the static assets for your application, such as images.
+- **`/scripts`** : Contains a seeding script that you'll use to populate your database in a later chapter.
+- **Config Files** : You'll also notice config files such as `next.config.js` at the root of your application. Most of these files are created and pre-configured when you start a new project using `create-next-app`. You will not need to modify them in this course.
 
 Feel free to explore these folders, and don't worry if you don't understand
 everything the code is doing yet.
@@ -70,8 +67,8 @@ everything the code is doing yet.
 When you're building user interfaces, it helps to have some placeholder data.
 If a database or API is not yet available, you can:
 
-  * Use placeholder data in JSON format or as JavaScript objects.
-  * Use a 3rd party service like [mockAPI](https://mockapi.io/).
+- Use placeholder data in JSON format or as JavaScript objects.
+- Use a 3rd party service like [mockAPI](https://mockapi.io/).
 
 For this project, we've provided some placeholder data in
 `app/lib/placeholder-data.js`. Each JavaScript object in the file represents a
@@ -79,8 +76,6 @@ table in your database. For example, for the invoices table:
 
 /app/lib/placeholder-data.js
 
-    
-    
     const invoices = [
       {
         customer_id: customers[0].id,
@@ -116,8 +111,6 @@ invoices table has the following types:
 
 /app/lib/definitions.ts
 
-    
-    
     export type Invoice = {
       id: string;
       customer_id: string;
@@ -134,15 +127,14 @@ format to your components or database, like passing a `string` instead of a
 
 > **If you 're a TypeScript developer:**
 >
->   * We're manually declaring the data types, but for better type-safety, we
-> recommend [Prisma](https://www.prisma.io/), which automatically generates
-> types based on your database schema.
->   * Next.js detects if your project uses TypeScript and automatically
-> installs the necessary packages and configuration. Next.js also comes with a
-> [TypeScript plugin](https://nextjs.org/docs/app/building-your-
-> application/configuring/typescript#typescript-plugin) for your code editor,
-> to help with auto-completion and type-safety.
->
+> - We're manually declaring the data types, but for better type-safety, we
+>   recommend [Prisma](https://www.prisma.io/), which automatically generates
+>   types based on your database schema.
+> - Next.js detects if your project uses TypeScript and automatically
+>   installs the necessary packages and configuration. Next.js also comes with a
+>   [TypeScript plugin](https://nextjs.org/docs/app/building-your-
+>   application/configuring/typescript#typescript-plugin) for your code editor,
+>   to help with auto-completion and type-safety.
 
 ## Running the development server
 
@@ -150,16 +142,12 @@ Run `npm i` to install the project's packages.
 
 Terminal
 
-    
-    
     npm i
 
 Followed by `npm run dev` to start the development server.
 
 Terminal
 
-    
-    
     npm run dev
 
 `npm run dev` starts your Next.js development server on port `3000`. Let's
@@ -168,9 +156,9 @@ check to see if it's working. Open
 page should look like this:
 
 ![Unstyled page with the title 'Acme', a description, and login
-link.](/_next/image?url=%2Flearn%2Flight%2Facme-
+link.](/\_next/image?url=%2Flearn%2Flight%2Facme-
 unstyled.png&w=3840&q=75)![Unstyled page with the title 'Acme', a description,
-and login link.](/_next/image?url=%2Flearn%2Fdark%2Facme-
+and login link.](/\_next/image?url=%2Flearn%2Fdark%2Facme-
 unstyled.png&w=3840&q=75)
 
 1
@@ -190,4 +178,3 @@ application.
 [Start Chapter 2](/learn/dashboard-app/css-styling)
 
 Was this helpful?
-

@@ -1,6 +1,7 @@
 ---
-title: Chapter 14: Improving Accessibility
+title: Chapter 14
 description: Improving Accessibility
+type: Chapter
 ---
 
 In the previous chapter, we looked at how to catch errors (including 404
@@ -50,8 +51,6 @@ Add `next lint` as a script in your `package.json` file:
 
 /package.json
 
-    
-    
     "scripts": {
         "build": "next build",
         "dev": "next dev",
@@ -64,16 +63,12 @@ Then run `npm run lint` in your terminal:
 
 Terminal
 
-    
-    
     npm run lint
 
 You should see the following warning:
 
 Terminal
 
-    
-    
     ✔ No ESLint warnings or errors
 
 However, what would happen if you had an image without `alt` text? Let's find
@@ -84,8 +79,6 @@ You can use your editor's search feature to quickly find the `<Image>`:
 
 /app/ui/invoices/table.tsx
 
-    
-    
     <Image
       src={invoice.image_url}
       className="rounded-full"
@@ -98,8 +91,6 @@ Now run `npm run lint` again, and you should see the following warning:
 
 Terminal
 
-    
-    
     ./app/ui/invoices/table.tsx
     45:25  Warning: Image elements must have an alt prop,
     either with meaningful text, or an empty string for decorative images. jsx-a11y/alt-text
@@ -114,9 +105,9 @@ deploying your application.
 There are three things we're already doing to improve accessibility in our
 forms:
 
-  * **Semantic HTML** : Using semantic elements (`<input>`, `<option>`, etc) instead of `<div>`. This allows assistive technologies (AT) to focus on the input elements and provide appropriate contextual information to the user, making the form easier to navigate and understand.
-  * **Labelling** : Including `<label>` and the `htmlFor` attribute ensures that each form field has a descriptive text label. This improves AT support by providing context and also enhances usability by allowing users to click on the label to focus on the corresponding input field.
-  * **Focus Outline** : The fields are properly styled to show an outline when they are in focus. This is critical for accessibility as it visually indicates the active element on the page, helping both keyboard and screen reader users to understand where they are on the form. You can verify this by pressing `tab`.
+- **Semantic HTML** : Using semantic elements (`<input>`, `<option>`, etc) instead of `<div>`. This allows assistive technologies (AT) to focus on the input elements and provide appropriate contextual information to the user, making the form easier to navigate and understand.
+- **Labelling** : Including `<label>` and the `htmlFor` attribute ensures that each form field has a descriptive text label. This improves AT support by providing context and also enhances usability by allowing users to click on the label to focus on the corresponding input field.
+- **Focus Outline** : The fields are properly styled to show an outline when they are in focus. This is critical for accessibility as it visually indicates the active element on the page, helping both keyboard and screen reader users to understand where they are on the form. You can verify this by pressing `tab`.
 
 These practices lay a good foundation for making your forms more accessible to
 many users. However, they don't address **form validation** and **errors**.
@@ -140,8 +131,6 @@ For example:
 
 /app/ui/invoices/create-form.tsx
 
-    
-    
     <input
       id="amount"
       name="amount"
@@ -164,9 +153,9 @@ attributes if you added them.
 
 By validating forms on the server, you can:
 
-  * Ensure your data is in the expected format before sending it to your database.
-  * Reduce the risk of malicious users bypassing client-side validation.
-  * Have one source of truth for what is considered _valid_ data.
+- Ensure your data is in the expected format before sending it to your database.
+- Reduce the risk of malicious users bypassing client-side validation.
+- Have one source of truth for what is considered _valid_ data.
 
 In your `create-form.tsx` component, import the `useFormState` hook from
 `react-dom`. Since `useFormState` is a hook, you will need to turn your form
@@ -174,31 +163,27 @@ into a Client Component using `"use client"` directive:
 
 /app/ui/invoices/create-form.tsx
 
-    
-    
     'use client';
-     
+
     // ...
     import { useFormState } from 'react-dom';
 
 Inside your Form Component, the `useFormState` hook:
 
-  * Takes two arguments: `(action, initialState)`.
-  * Returns two values: `[state, dispatch]` \- the form state, and a dispatch function (similar to [useReducer](https://react.dev/reference/react/useReducer))
+- Takes two arguments: `(action, initialState)`.
+- Returns two values: `[state, dispatch]` \- the form state, and a dispatch function (similar to [useReducer](https://react.dev/reference/react/useReducer))
 
 Pass your `createInvoice` action as an argument of `useFormState`, and inside
 your `<form action={}>` attribute, call `dispatch`.
 
 /app/ui/invoices/create-form.tsx
 
-    
-    
     // ...
     import { useFormState } from 'react-dom';
-     
+
     export default function Form({ customers }: { customers: CustomerField[] }) {
       const [state, dispatch] = useFormState(createInvoice, initialState);
-     
+
       return <form action={dispatch}>...</form>;
     }
 
@@ -207,15 +192,13 @@ with two empty keys: `message` and `errors`.
 
 /app/ui/invoices/create-form.tsx
 
-    
-    
     // ...
     import { useFormState } from 'react-dom';
-     
+
     export default function Form({ customers }: { customers: CustomerField[] }) {
       const initialState = { message: null, errors: {} };
       const [state, dispatch] = useFormState(createInvoice, initialState);
-     
+
       return <form action={dispatch}>...</form>;
     }
 
@@ -227,8 +210,6 @@ In your `action.ts` file, you can use Zod to validate form data. Update your
 
 /app/lib/action.ts
 
-    
-    
     const FormSchema = z.object({
       id: z.string(),
       customerId: z.string({
@@ -243,16 +224,14 @@ In your `action.ts` file, you can use Zod to validate form data. Update your
       date: z.string(),
     });
 
-  * `customerId` \- Zod already throws an error if the customer field is empty as it expects a type `string`. But let's add a friendly message if the user doesn't select a customer.
-  * `amount` \- Since you are coercing the amount type from `string` to `number`, it'll default to zero if the string is empty. Let's tell Zod we always want the amount greater than 0 with the `.gt()` function.
-  * `status` \- Zod already throws an error if the status field is empty as it expects "pending" or "paid". Let's also add a friendly message if the user doesn't select a status.
+- `customerId` \- Zod already throws an error if the customer field is empty as it expects a type `string`. But let's add a friendly message if the user doesn't select a customer.
+- `amount` \- Since you are coercing the amount type from `string` to `number`, it'll default to zero if the string is empty. Let's tell Zod we always want the amount greater than 0 with the `.gt()` function.
+- `status` \- Zod already throws an error if the status field is empty as it expects "pending" or "paid". Let's also add a friendly message if the user doesn't select a status.
 
 Next, update your `createInvoice` action to accept two parameters:
 
 /app/lib/actions.ts
 
-    
-    
     // This is temporary until @types/react-dom is updated
     export type State = {
       errors?: {
@@ -262,20 +241,18 @@ Next, update your `createInvoice` action to accept two parameters:
       };
       message?: string | null;
     };
-     
+
     export async function createInvoice(prevState: State, formData: FormData) {
       // ...
     }
 
-  * `formData` \- same as before.
-  * `prevState` \- contains the state passed from the `useFormState` hook. You won't be using it in the action in this example, but it's a required prop.
+- `formData` \- same as before.
+- `prevState` \- contains the state passed from the `useFormState` hook. You won't be using it in the action in this example, but it's a required prop.
 
 Then, change the Zod `parse()` function to `safeParse()`:
 
 /app/lib/actions.ts
 
-    
-    
     export async function createInvoice(prevState: State, formData: FormData) {
       // Validate form fields using Zod
       const validatedFields = CreateInvoice.safeParse({
@@ -283,7 +260,7 @@ Then, change the Zod `parse()` function to `safeParse()`:
         amount: formData.get('amount'),
         status: formData.get('status'),
       });
-     
+
       // ...
     }
 
@@ -296,8 +273,6 @@ validated correctly with a conditional:
 
 /app/lib/actions.ts
 
-    
-    
     export async function createInvoice(prevState: State, formData: FormData) {
       // Validate form fields using Zod
       const validatedFields = CreateInvoice.safeParse({
@@ -305,7 +280,7 @@ validated correctly with a conditional:
         amount: formData.get('amount'),
         status: formData.get('status'),
       });
-     
+
       // If form validation fails, return errors early. Otherwise, continue.
       if (!validatedFields.success) {
         return {
@@ -313,7 +288,7 @@ validated correctly with a conditional:
           message: 'Missing Fields. Failed to Create Invoice.',
         };
       }
-     
+
       // ...
     }
 
@@ -329,8 +304,6 @@ your final code should look like this:
 
 /app/lib/actions.ts
 
-    
-    
     export async function createInvoice(prevState: State, formData: FormData) {
       // Validate form using Zod
       const validatedFields = CreateInvoice.safeParse({
@@ -338,7 +311,7 @@ your final code should look like this:
         amount: formData.get('amount'),
         status: formData.get('status'),
       });
-     
+
       // If form validation fails, return errors early. Otherwise, continue.
       if (!validatedFields.success) {
         return {
@@ -346,12 +319,12 @@ your final code should look like this:
           message: 'Missing Fields. Failed to Create Invoice.',
         };
       }
-     
+
       // Prepare data for insertion into the database
       const { customerId, amount, status } = validatedFields.data;
       const amountInCents = amount * 100;
       const date = new Date().toISOString().split('T')[0];
-     
+
       // Insert data into the database
       try {
         await sql`
@@ -364,7 +337,7 @@ your final code should look like this:
           message: 'Database Error: Failed to Create Invoice.',
         };
       }
-     
+
       // Revalidate the cache for the invoices page and redirect the user.
       revalidatePath('/dashboard/invoices');
       redirect('/dashboard/invoices');
@@ -378,8 +351,6 @@ after the customer's field, you can add:
 
 /app/ui/invoices/create-form.tsx
 
-    
-    
     <form action={dispatch}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         {/* Customer Name */}
@@ -425,9 +396,9 @@ after the customer's field, you can add:
 
 In the code above, you're also adding the following aria labels:
 
-  * `aria-describedby="customer-error"`: This establishes a relationship between the `select` element and the error message container. It indicates that the container with `id="customer-error"` describes the `select` element. Screen readers will read this description when the user interacts with the `select` box to notify them of errors.
-  * `id="customer-error"`: This `id` attribute uniquely identifies the HTML element that holds the error message for the `select` input. This is necessary for `aria-describedby` to establish the relationship.
-  * `aria-live="polite"`: The screen reader should politely notify the user when the error inside the `div` is updated. When the content changes (e.g. when a user corrects an error), the screen reader will announce these changes, but only when the user is idle so as not to interrupt them.
+- `aria-describedby="customer-error"`: This establishes a relationship between the `select` element and the error message container. It indicates that the container with `id="customer-error"` describes the `select` element. Screen readers will read this description when the user interacts with the `select` box to notify them of errors.
+- `id="customer-error"`: This `id` attribute uniquely identifies the HTML element that holds the error message for the `select` input. This is necessary for `aria-describedby` to establish the relationship.
+- `aria-live="polite"`: The screen reader should politely notify the user when the error inside the `div` is updated. When the content changes (e.g. when a user corrects an error), the screen reader will announce these changes, but only when the user is idle so as not to interrupt them.
 
 # Practice: Adding aria labels
 
@@ -436,9 +407,9 @@ also show a message at the bottom of the form if any fields are missing. Your
 UI should look like this:
 
 ![Create invoice form showing error messages for each
-field.](/_next/image?url=%2Flearn%2Flight%2Fform-validation-
+field.](/\_next/image?url=%2Flearn%2Flight%2Fform-validation-
 page.png&w=1920&q=75)![Create invoice form showing error messages for each
-field.](/_next/image?url=%2Flearn%2Fdark%2Fform-validation-
+field.](/\_next/image?url=%2Flearn%2Fdark%2Fform-validation-
 page.png&w=1920&q=75)
 
 Once you're ready, run `npm run lint` to check if you're using the aria labels
@@ -449,9 +420,9 @@ chapter and add form validation to the `edit-form.tsx` component.
 
 You'll need to:
 
-  * Add `useFormState` to your `edit-form.tsx` component.
-  * Edit the `updateInvoice` action to handle validation errors from Zod.
-  * Display the errors in your component, and add aria labels to improve accessibility.
+- Add `useFormState` to your `edit-form.tsx` component.
+- Edit the `updateInvoice` action to handle validation errors from Zod.
+- Display the errors in your component, and add aria labels to improve accessibility.
 
 Once you're ready, expand the code snippet below to see the solution:
 
@@ -474,4 +445,3 @@ authentication to your application using NextAuth.js.
 [Start Chapter 15](/learn/dashboard-app/adding-authentication)
 
 Was this helpful?
-

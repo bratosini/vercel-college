@@ -1,13 +1,15 @@
 ---
 title: Chapter 8: Static and Dynamic Rendering
 description: Static and Dynamic Rendering
+type: Chapter
+
 ---
 
 In the previous chapter, you fetched data for the Dashboard Overview page.
 However, we briefly discussed two limitations of the current setup:
 
-  1. The data requests are creating an unintentional waterfall.
-  2. The dashboard is static, so any data updates will not be reflected on your application.
+1. The data requests are creating an unintentional waterfall.
+2. The dashboard is static, so any data updates will not be reflected on your application.
 
 In this chapter...
 
@@ -32,17 +34,17 @@ Network (CDN)](https://nextjs.org/docs/app/building-your-
 application/rendering/server-components#static-rendering-default).
 
 ![Diagram showing how users hit the CDN instead of the server when requesting
-a page](/_next/image?url=%2Flearn%2Flight%2Fstatic-site-
+a page](/\_next/image?url=%2Flearn%2Flight%2Fstatic-site-
 generation.png&w=3840&q=75)![Diagram showing how users hit the CDN instead of
-the server when requesting a page](/_next/image?url=%2Flearn%2Fdark%2Fstatic-
+the server when requesting a page](/\_next/image?url=%2Flearn%2Fdark%2Fstatic-
 site-generation.png&w=3840&q=75)
 
 Whenever a user visits your application, the cached result is served. There
 are a couple of benefits of static rendering:
 
-  * **Faster Websites** \- Prerendered content can be cached and globally distributed. This ensures that users around the world can access your website's content more quickly and reliably.
-  * **Reduced Server Load** \- Because the content is cached, your server does not have to dynamically generate content for each user request.
-  * **SEO** \- Prerendered content is easier for search engine crawlers to index, as the content is already available when the page loads. This can lead to improved search engine rankings.
+- **Faster Websites** \- Prerendered content can be cached and globally distributed. This ensures that users around the world can access your website's content more quickly and reliably.
+- **Reduced Server Load** \- Because the content is cached, your server does not have to dynamically generate content for each user request.
+- **SEO** \- Prerendered content is easier for search engine crawlers to index, as the content is already available when the page loads. This can lead to improved search engine rankings.
 
 Static rendering is useful for UI with **no data** or **data that is shared
 across users** , such as a static blog post or a product page. It might not be
@@ -57,9 +59,9 @@ With dynamic rendering, content is rendered on the server for each user at
 **request time** (when the user visits the page). There are a couple of
 benefits of dynamic rendering:
 
-  * **Real-Time Data** \- Dynamic rendering allows your application to display real-time or frequently updated data. This is ideal for applications where data changes often.
-  * **User-Specific Content** \- It's easier to serve personalized content, such as dashboards or user profiles, and update the data based on user interaction.
-  * **Request Time Information** \- Dynamic rendering allows you to access information that can only be known at request time, such as cookies or the URL search parameters.
+- **Real-Time Data** \- Dynamic rendering allows your application to display real-time or frequently updated data. This is ideal for applications where data changes often.
+- **User-Specific Content** \- It's easier to serve personalized content, such as dashboards or user profiles, and update the data based on user interaction.
+- **Request Time Information** \- Dynamic rendering allows you to access information that can only be known at request time, such as cookies or the URL search parameters.
 
 ## Making the dashboard dynamic
 
@@ -75,29 +77,27 @@ the top of your data fetching functions:
 
 /app/lib/data.ts
 
-    
-    
     // ...
     import { unstable_noStore as noStore } from 'next/cache';
-     
+
     export async function fetchRevenue() {
       // Add noStore() here to prevent the response from being cached.
       // This is equivalent to in fetch(..., {cache: 'no-store'}).
       noStore();
-     
+
       // ...
     }
-     
+
     export async function fetchLatestInvoices() {
       noStore();
       // ...
     }
-     
+
     export async function fetchCardData() {
       noStore();
       // ...
     }
-     
+
     export async function fetchFilteredInvoices(
       query: string,
       currentPage: number,
@@ -105,17 +105,17 @@ the top of your data fetching functions:
       noStore();
       // ...
     }
-     
+
     export async function fetchInvoicesPages(query: string) {
       noStore();
       // ...
     }
-     
+
     export async function fetchFilteredCustomers(query: string) {
       noStore();
       // ...
     }
-     
+
     export async function fetchInvoiceById(query: string) {
       noStore();
       // ...
@@ -137,19 +137,17 @@ Let's simulate a slow data fetch. In your `data.ts` file, uncomment the
 
 /app/lib/data.ts
 
-    
-    
     export async function fetchRevenue() {
       try {
         // We artificially delay a response for demo purposes.
         // Don't do this in production :)
         console.log('Fetching revenue data...');
         await new Promise((resolve) => setTimeout(resolve, 3000));
-     
+
         const data = await sql<Revenue>`SELECT * FROM revenue`;
-     
+
         console.log('Data fetch completed after 3 seconds.');
-     
+
         return data.rows;
       } catch (error) {
         console.error('Database Error:', error);
@@ -162,8 +160,6 @@ Now open
 new tab and notice how the page takes longer to load. In your terminal, you
 should also see the following messages:
 
-    
-    
     Fetching revenue data...
     Data fetch completed after 3 seconds.
 
@@ -191,4 +187,3 @@ Learn how to improve your user's experience by adding streaming.
 [Start Chapter 9](/learn/dashboard-app/streaming)
 
 Was this helpful?
-

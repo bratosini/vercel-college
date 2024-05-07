@@ -1,6 +1,8 @@
 ---
 title: Chapter Unknown Chapter Number: Unknown Chapter Title
 description: Unknown Chapter Title
+type: Chapter
+
 ---
 
 Congratulations! You've completed the Next.js dashboard course where you
@@ -13,18 +15,18 @@ scale applications with your team.
 
 Here are some resources to continue exploring Next.js:
 
-  * [Next.js Documentation](/docs)
-  * [Next.js Templates](https://vercel.com/templates?framework=next.js):
-    * [Admin Dashboard Template](https://vercel.com/templates/next.js/admin-dashboard-tailwind-planetscale-react-nextjs)
-    * [Next.js Commerce](https://vercel.com/templates/next.js/nextjs-commerce)
-    * [Blog Starter Kit](https://vercel.com/templates/next.js/blog-starter-kit)
-    * [Nextra: Docs Starter Kit](https://vercel.com/templates/next.js/documentation-starter-kit)
-    * [Image Gallery Starter](https://vercel.com/templates/next.js/image-gallery-starter)
-  * [Next.js Repository](https://github.com/vercel/next.js)
-  * [Vercel YouTube](https://www.youtube.com/@VercelHQ/videos)
-    * [Next.js App Router: Routing, Data Fetching, Caching](https://www.youtube.com/watch?v=gSSsZReIFRk)
-    * [Performance in React and Next.js (Lydia Hallie)](https://www.youtube.com/watch?v=SqVLqvsiAYQ)
-    * [Vercel Product Walkthrough](https://www.youtube.com/watch?v=sPmat30SE4k)
+- [Next.js Documentation](/docs)
+- [Next.js Templates](https://vercel.com/templates?framework=next.js):
+  - [Admin Dashboard Template](https://vercel.com/templates/next.js/admin-dashboard-tailwind-planetscale-react-nextjs)
+  - [Next.js Commerce](https://vercel.com/templates/next.js/nextjs-commerce)
+  - [Blog Starter Kit](https://vercel.com/templates/next.js/blog-starter-kit)
+  - [Nextra: Docs Starter Kit](https://vercel.com/templates/next.js/documentation-starter-kit)
+  - [Image Gallery Starter](https://vercel.com/templates/next.js/image-gallery-starter)
+- [Next.js Repository](https://github.com/vercel/next.js)
+- [Vercel YouTube](https://www.youtube.com/@VercelHQ/videos)
+  - [Next.js App Router: Routing, Data Fetching, Caching](https://www.youtube.com/watch?v=gSSsZReIFRk)
+  - [Performance in React and Next.js (Lydia Hallie)](https://www.youtube.com/watch?v=SqVLqvsiAYQ)
+  - [Vercel Product Walkthrough](https://www.youtube.com/watch?v=sPmat30SE4k)
 
 ## Share your Next.js app
 
@@ -40,4 +42,3 @@ by building.
 Now that you've completed the final chapter, you're ready for the next steps.
 
 Was this helpful?
-

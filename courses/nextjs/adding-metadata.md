@@ -1,6 +1,7 @@
 ---
-title: Chapter 16: Adding Metadata
+title: Chapter 16
 description: Adding Metadata
+type: Chapter
 ---
 
 Metadata is crucial for SEO and shareability. In this chapter, we'll discuss
@@ -44,30 +45,22 @@ common types include:
 on the browser tab. It's crucial for SEO as it helps search engines understand
 what the webpage is about.
 
-    
-    
     <title>Page Title</title>
 
 **Description Metadata** : This metadata provides a brief overview of the
 webpage content and is often displayed in search engine results.
 
-    
-    
     <meta name="description" content="A brief description of the page content." />
 
 **Keyword Metadata** : This metadata includes the keywords related to the
 webpage content, helping search engines index the page.
 
-    
-    
     <meta name="keywords" content="keyword1, keyword2, keyword3" />
 
 **Open Graph Metadata** : This metadata enhances the way a webpage is
 represented when shared on social media platforms, providing information such
 as the title, description, and preview image.
 
-    
-    
     <meta property="og:title" content="Title Here" />
     <meta property="og:description" content="Description Here" />
     <meta property="og:image" content="image_url_here" />
@@ -75,8 +68,6 @@ as the title, description, and preview image.
 **Favicon Metadata** : This metadata links the favicon (a small icon) to the
 webpage, displayed in the browser's address bar or tab.
 
-    
-    
     <link rel="icon" href="path/to/favicon.ico" />
 
 ## Adding metadata
@@ -84,14 +75,14 @@ webpage, displayed in the browser's address bar or tab.
 Next.js has a Metadata API that can be used to define your application
 metadata. There are two ways you can add metadata to your application:
 
-  * **Config-based** : Export a [static `metadata` object](/docs/app/api-reference/functions/generate-metadata#metadata-object) or a dynamic [`generateMetadata` function](/docs/app/api-reference/functions/generate-metadata#generatemetadata-function) in a `layout.js` or `page.js` file.
+- **Config-based** : Export a [static `metadata` object](/docs/app/api-reference/functions/generate-metadata#metadata-object) or a dynamic [`generateMetadata` function](/docs/app/api-reference/functions/generate-metadata#generatemetadata-function) in a `layout.js` or `page.js` file.
 
-  * **File-based** : Next.js has a range of special files that are specifically used for metadata purposes:
+- **File-based** : Next.js has a range of special files that are specifically used for metadata purposes:
 
-    * `favicon.ico`, `apple-icon.jpg`, and `icon.jpg`: Utilized for favicons and icons
-    * `opengraph-image.jpg` and `twitter-image.jpg`: Employed for social media images
-    * `robots.txt`: Provides instructions for search engine crawling
-    * `sitemap.xml`: Offers information about the website's structure
+  - `favicon.ico`, `apple-icon.jpg`, and `icon.jpg`: Utilized for favicons and icons
+  - `opengraph-image.jpg` and `twitter-image.jpg`: Employed for social media images
+  - `robots.txt`: Provides instructions for search engine crawling
+  - `sitemap.xml`: Offers information about the website's structure
 
 You have the flexibility to use these files for static metadata, or you can
 generate them programmatically within your project.
@@ -125,16 +116,14 @@ In your root layout, create a new `metadata` object with the following fields:
 
 /app/layout.tsx
 
-    
-    
     import { Metadata } from 'next';
-     
+
     export const metadata: Metadata = {
       title: 'Acme Dashboard',
       description: 'The official Next.js Course Dashboard, built with App Router.',
       metadataBase: new URL('https://next-learn-dashboard.vercel.sh'),
     };
-     
+
     export default function RootLayout() {
       // ...
     }
@@ -149,10 +138,8 @@ For example, in the `/dashboard/invoices` page, you can update the page title:
 
 /app/dashboard/invoices/page.tsx
 
-    
-    
     import { Metadata } from 'next';
-     
+
     export const metadata: Metadata = {
       title: 'Invoices | Acme Dashboard',
     };
@@ -169,10 +156,8 @@ In your root layout, update the `metadata` object to include a template:
 
 /app/layout.tsx
 
-    
-    
     import { Metadata } from 'next';
-     
+
     export const metadata: Metadata = {
       title: {
         template: '%s | Acme Dashboard',
@@ -188,8 +173,6 @@ Now, in your `/dashboard/invoices` page, you can add the page title:
 
 /app/dashboard/invoices/page.tsx
 
-    
-    
     export const metadata: Metadata = {
       title: 'Invoices',
     };
@@ -201,11 +184,11 @@ Navigate to the `/dashboard/invoices` page and check the `<head>` element. You s
 Now that you've learned about metadata, practice by adding titles to your
 other pages:
 
-  1. `/login` page.
-  2. `/dashboard/` page.
-  3. `/dashboard/customers` page.
-  4. `/dashboard/invoices/create` page.
-  5. `/dashboard/invoices/[id]/edit` page.
+1. `/login` page.
+2. `/dashboard/` page.
+3. `/dashboard/customers` page.
+4. `/dashboard/invoices/create` page.
+5. `/dashboard/invoices/[id]/edit` page.
 
 The Next.js Metadata API is powerful and flexible, giving you full control
 over your application's metadata. Here, we've shown you how to add some basic
@@ -230,4 +213,3 @@ Continue exploring Next.js
 [Start Chapter 17](/learn/dashboard-app/next-steps)
 
 Was this helpful?
-

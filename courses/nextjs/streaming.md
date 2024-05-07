@@ -1,6 +1,7 @@
 ---
 title: Chapter 9: Streaming
 description: Streaming
+type: Chapter
 ---
 
 In the previous chapter, you made your dashboard page dynamic, however, we
@@ -29,9 +30,9 @@ into smaller "chunks" and progressively stream them from the server to the
 client as they become ready.
 
 ![Diagram showing time with sequential data fetching and parallel data
-fetching](/_next/image?url=%2Flearn%2Flight%2Fserver-rendering-with-
+fetching](/\_next/image?url=%2Flearn%2Flight%2Fserver-rendering-with-
 streaming.png&w=3840&q=75)![Diagram showing time with sequential data fetching
-and parallel data fetching](/_next/image?url=%2Flearn%2Fdark%2Fserver-
+and parallel data fetching](/\_next/image?url=%2Flearn%2Fdark%2Fserver-
 rendering-with-streaming.png&w=3840&q=75)
 
 By streaming, you can prevent slow data requests from blocking your whole
@@ -39,9 +40,9 @@ page. This allows the user to see and interact with parts of the page without
 waiting for all the data to load before any UI can be shown to the user.
 
 ![Diagram showing time with sequential data fetching and parallel data
-fetching](/_next/image?url=%2Flearn%2Flight%2Fserver-rendering-with-streaming-
+fetching](/\_next/image?url=%2Flearn%2Flight%2Fserver-rendering-with-streaming-
 chart.png&w=3840&q=75)![Diagram showing time with sequential data fetching and
-parallel data fetching](/_next/image?url=%2Flearn%2Fdark%2Fserver-rendering-
+parallel data fetching](/\_next/image?url=%2Flearn%2Fdark%2Fserver-rendering-
 with-streaming-chart.png&w=3840&q=75)
 
 Streaming works well with React's component model, as each component can be
@@ -49,8 +50,8 @@ considered a _chunk_.
 
 There are two ways you implement streaming in Next.js:
 
-  1. At the page level, with the `loading.tsx` file.
-  2. For specific components, with `<Suspense>`.
+1. At the page level, with the `loading.tsx` file.
+2. For specific components, with `<Suspense>`.
 
 Let's see how this works.
 
@@ -60,8 +61,6 @@ In the `/app/dashboard` folder, create a new file called `loading.tsx`:
 
 /app/dashboard/loading.tsx
 
-    
-    
     export default function Loading() {
       return <div>Loading...</div>;
     }
@@ -70,15 +69,15 @@ Refresh <http://localhost:3000/dashboard>[](http://localhost:3000/dashboard),
 and you should now see:
 
 ![Dashboard page with 'Loading...'
-text](/_next/image?url=%2Flearn%2Flight%2Floading-
+text](/\_next/image?url=%2Flearn%2Flight%2Floading-
 page.png&w=1920&q=75)![Dashboard page with 'Loading...'
 text](/_next/image?url=%2Flearn%2Fdark%2Floading-page.png&w=1920&q=75)
 
 A few things are happening here:
 
-  1. `loading.tsx` is a special Next.js file built on top of Suspense, it allows you to create fallback UI to show as a replacement while page content loads.
-  2. Since `<SideNav>` is static, it's shown immediately. The user can interact with `<SideNav>` while the dynamic content is loading.
-  3. The user doesn't have to wait for the page to finish loading before navigating away (this is called interruptable navigation).
+1. `loading.tsx` is a special Next.js file built on top of Suspense, it allows you to create fallback UI to show as a replacement while page content loads.
+2. Since `<SideNav>` is static, it's shown immediately. The user can interact with `<SideNav>` while the dynamic content is loading.
+3. The user doesn't have to wait for the page to finish loading before navigating away (this is called interruptable navigation).
 
 Congratulations! You've just implemented streaming. But we can do more to
 improve the user experience. Let's show a loading skeleton instead of the
@@ -97,10 +96,8 @@ Inside your `loading.tsx` file, import a new component called
 
 /app/dashboard/loading.tsx
 
-    
-    
     import DashboardSkeleton from '@/app/ui/skeletons';
-     
+
     export default function Loading() {
       return <DashboardSkeleton />;
     }
@@ -110,9 +107,9 @@ Then, refresh
 should now see:
 
 ![Dashboard page with loading
-skeletons](/_next/image?url=%2Flearn%2Flight%2Floading-page-with-
+skeletons](/\_next/image?url=%2Flearn%2Flight%2Floading-page-with-
 skeleton.png&w=1920&q=75)![Dashboard page with loading
-skeletons](/_next/image?url=%2Flearn%2Fdark%2Floading-page-with-
+skeletons](/\_next/image?url=%2Flearn%2Fdark%2Floading-page-with-
 skeleton.png&w=1920&q=75)
 
 ### Fixing the loading skeleton bug with route groups
@@ -129,9 +126,9 @@ your-application/routing/route-groups). Create a new folder called
 `page.tsx` files inside the folder:
 
 ![Folder structure showing how to create a route group using
-parentheses](/_next/image?url=%2Flearn%2Flight%2Froute-
+parentheses](/\_next/image?url=%2Flearn%2Flight%2Froute-
 group.png&w=3840&q=75)![Folder structure showing how to create a route group
-using parentheses](/_next/image?url=%2Flearn%2Fdark%2Froute-
+using parentheses](/\_next/image?url=%2Flearn%2Fdark%2Froute-
 group.png&w=3840&q=75)
 
 Now, the `loading.tsx` file will only apply to your dashboard overview page.
@@ -169,14 +166,12 @@ Delete all instances of `fetchRevenue()` and its data from
 
 /app/dashboard/(overview)/page.tsx
 
-    
-    
     import { Card } from '@/app/ui/dashboard/cards';
     import RevenueChart from '@/app/ui/dashboard/revenue-chart';
     import LatestInvoices from '@/app/ui/dashboard/latest-invoices';
     import { lusitana } from '@/app/ui/fonts';
     import { fetchLatestInvoices, fetchCardData } from '@/app/lib/data'; // remove fetchRevenue
-     
+
     export default async function Page() {
       const revenue = await fetchRevenue // delete this line
       const latestInvoices = await fetchLatestInvoices();
@@ -186,7 +181,7 @@ Delete all instances of `fetchRevenue()` and its data from
         totalPaidInvoices,
         totalPendingInvoices,
       } = await fetchCardData();
-     
+
       return (
         // ...
       );
@@ -197,8 +192,6 @@ You can pass it a fallback component called `<RevenueChartSkeleton>`.
 
 /app/dashboard/(overview)/page.tsx
 
-    
-    
     import { Card } from '@/app/ui/dashboard/cards';
     import RevenueChart from '@/app/ui/dashboard/revenue-chart';
     import LatestInvoices from '@/app/ui/dashboard/latest-invoices';
@@ -206,7 +199,7 @@ You can pass it a fallback component called `<RevenueChartSkeleton>`.
     import { fetchLatestInvoices, fetchCardData } from '@/app/lib/data';
     import { Suspense } from 'react';
     import { RevenueChartSkeleton } from '@/app/ui/skeletons';
-     
+
     export default async function Page() {
       const latestInvoices = await fetchLatestInvoices();
       const {
@@ -215,7 +208,7 @@ You can pass it a fallback component called `<RevenueChartSkeleton>`.
         totalPaidInvoices,
         totalPendingInvoices,
       } = await fetchCardData();
-     
+
       return (
         <main>
           <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
@@ -246,39 +239,36 @@ remove the prop passed to it:
 
 /app/ui/dashboard/revenue-chart.tsx
 
-    
-    
     import { generateYAxis } from '@/app/lib/utils';
     import { CalendarIcon } from '@heroicons/react/24/outline';
     import { lusitana } from '@/app/ui/fonts';
     import { fetchRevenue } from '@/app/lib/data';
-     
+
     // ...
-     
+
     export default async function RevenueChart() { // Make component async, remove the props
       const revenue = await fetchRevenue(); // Fetch data inside the component
-     
+
       const chartHeight = 350;
       const { yAxisLabels, topLabel } = generateYAxis(revenue);
-     
+
       if (!revenue || revenue.length === 0) {
         return <p className="mt-4 text-gray-400">No data available.</p>;
       }
-     
+
       return (
         // ...
       );
     }
-     
 
 Now refresh the page, you should see the dashboard information almost
 immediately, while a fallback skeleton is shown for `<RevenueChart>`:
 
 ![Dashboard page with revenue chart skeleton and loaded Card and Latest
-Invoices components](/_next/image?url=%2Flearn%2Flight%2Floading-revenue-
+Invoices components](/\_next/image?url=%2Flearn%2Flight%2Floading-revenue-
 chart.png&w=1920&q=75)![Dashboard page with revenue chart skeleton and loaded
 Card and Latest Invoices
-components](/_next/image?url=%2Flearn%2Fdark%2Floading-revenue-
+components](/\_next/image?url=%2Flearn%2Fdark%2Floading-revenue-
 chart.png&w=1920&q=75)
 
 ### Practice: Streaming `<LatestInvoices>`
@@ -309,16 +299,14 @@ followed by the cards, etc.
 
 In your `page.tsx` file:
 
-  1. Delete your `<Card>` components.
-  2. Delete the `fetchCardData()` function.
-  3. Import a new **wrapper** component called `<CardWrapper />`.
-  4. Import a new **skeleton** component called `<CardsSkeleton />`.
-  5. Wrap `<CardWrapper />` in Suspense.
+1. Delete your `<Card>` components.
+2. Delete the `fetchCardData()` function.
+3. Import a new **wrapper** component called `<CardWrapper />`.
+4. Import a new **skeleton** component called `<CardsSkeleton />`.
+5. Wrap `<CardWrapper />` in Suspense.
 
 /app/dashboard/page.tsx
 
-    
-    
     import CardWrapper from '@/app/ui/dashboard/cards';
     // ...
     import {
@@ -326,7 +314,7 @@ In your `page.tsx` file:
       LatestInvoicesSkeleton,
       CardsSkeleton,
     } from '@/app/ui/skeletons';
-     
+
     export default async function Page() {
       return (
         <main>
@@ -349,13 +337,11 @@ component. Make sure to uncomment any necessary code in this component.
 
 /app/ui/dashboard/cards.tsx
 
-    
-    
     // ...
     import { fetchCardData } from '@/app/lib/data';
-     
+
     // ...
-     
+
     export default async function CardWrapper() {
       const {
         numberOfInvoices,
@@ -363,7 +349,7 @@ component. Make sure to uncomment any necessary code in this component.
         totalPaidInvoices,
         totalPendingInvoices,
       } = await fetchCardData();
-     
+
       return (
         <>
           <Card title="Collected" value={totalPaidInvoices} type="collected" />
@@ -386,18 +372,18 @@ same time.
 
 Where you place your Suspense boundaries will depend on a few things:
 
-  1. How you want the user to experience the page as it streams.
-  2. What content you want to prioritize.
-  3. If the components rely on data fetching.
+1. How you want the user to experience the page as it streams.
+2. What content you want to prioritize.
+3. If the components rely on data fetching.
 
 Take a look at your dashboard page, is there anything you would've done
 differently?
 
 Don't worry. There isn't a right answer.
 
-  * You could stream the **whole page** like we did with `loading.tsx`... but that may lead to a longer loading time if one of the components has a slow data fetch.
-  * You could stream **every component** individually... but that may lead to UI _popping_ into the screen as it becomes ready.
-  * You could also create a _staggered_ effect by streaming **page sections**. But you'll need to create wrapper components.
+- You could stream the **whole page** like we did with `loading.tsx`... but that may lead to a longer loading time if one of the components has a slow data fetch.
+- You could stream **every component** individually... but that may lead to UI _popping_ into the screen as it becomes ready.
+- You could also create a _staggered_ effect by streaming **page sections**. But you'll need to create wrapper components.
 
 Where you place your suspense boundaries will vary depending on your
 application. In general, it's good practice to move your data fetches down to
@@ -432,4 +418,3 @@ built with streaming.
 [Start Chapter 10](/learn/dashboard-app/partial-prerendering)
 
 Was this helpful?
-
