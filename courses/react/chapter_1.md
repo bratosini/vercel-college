@@ -1,7 +1,7 @@
 ---
 title: Chapter 1
 description: About React and Next.js
-type: Chapter
+type: Post
 ---
 
 Next.js is a flexible **React framework** that gives you building blocks to
