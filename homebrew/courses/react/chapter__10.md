@@ -2,6 +2,7 @@
 title: Chapter 10
 description: Server and Client Components
 type: Chapter
+index: 10
 ---
 
 To understand how Server and Client Components work, it's helpful to be

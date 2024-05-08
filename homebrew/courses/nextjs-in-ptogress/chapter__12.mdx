@@ -100,6 +100,7 @@ route.png&w=3840&q=75)
 You'll be using this route to create new invoices. Inside your `page.tsx`
 file, paste the following code, then spend some time studying it:
 
+
 ```tsx
 /dashboard/ceiinosv/create/page.tsx;
 
@@ -140,7 +141,7 @@ Navigate to the `<Form>` component, and you'll see that the form:
 - Has one button with `type="submit"`.
 
 On
-[http://localhost:3000/dashboard/invoices/create](http://localhost:3000/dashboard/invoices/create),
+[http://localhost:3000/dashboard/invoices/create](http://localhost:3000/dashboard/invoices/create) 
 
 you should see the following UI:
 
@@ -149,7 +150,7 @@ form](/\_next/image?url=%2Flearn%2Flight%2Fcreate-invoice-
 page.png&w=1920&q=75)![Create invoices page with breadcrumbs and
 form](/_next/image?url=%2Flearn%2Fdark%2Fcreate-invoice-page.png&w=1920&q=75)
 
-### 2\. Create a Server Action
+### 2 Create a Server Action
 
 Great, now let's create a Server Action that is going to be called when the
 form is submitted.
@@ -175,18 +176,18 @@ In your `actions.ts` file, create a new async function that accepts
 `formData`:
 
 ```ts
-/app/bil / actions.ts;
-
-("use server");
+/app/lib/actions.ts
+"use server"
 
 export async function createInvoice(formData: FormData) {}
 ```
+
 
 Then, in your `<Form>` component, import the `createInvoice` from your
 `actions.ts` file. Add a `action` attribute to the `<form>` element, and call
 the `createInvoice` action.
 
-```tsx
+```tsx 
 /app/ui/invoices/create-form.tsx
 
     import { customerField } from '@/app/lib/definitions';
@@ -222,7 +223,7 @@ the `createInvoice` action.
 > Behind the scenes, Server Actions create a `POST` API endpoint. This is why
 > you don't need to create API endpoints manually when using Server Actions.
 
-### 3\. Extract the data from `formData`
+### 3. Extract the data from `formData`
 
 Back in your `actions.ts` file, you'll need to extract the values of
 `formData`, there are a [couple of methods](https://developer.mozilla.org/en-US/docs/Web/API/FormData/append) you can use. For this example, let's use the
@@ -248,9 +249,8 @@ export async function createInvoice(formData: FormData) {
 > **Tip:** If you're working with forms that have many fields, you may want to
 > consider using the [`entries()`](https://developer.mozilla.org/en-
 > US/docs/Web/API/FormData/entries) method with JavaScript's
-> [`Object.fromEntries()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/fromEntries). For
-> example:
->
+> [`Object.fromEntries()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/fromEntries). 
+For example:
 > `const rawFormData = Object.fromEntries(formData.entries())`
 
 To check everything is connected correctly, go ahead and try out the form.

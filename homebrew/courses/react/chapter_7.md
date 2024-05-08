@@ -2,6 +2,7 @@
 title: Chapter 7
 description: Adding Interactivity with State
 type: Chapter
+index: 7
 ---
 
 Let's explore how React helps us add interactivity with **state** and **event
