@@ -11,86 +11,85 @@ DOM methods to add an `h1` tag to your project.
 Open your code editor and create a new `index.html` file. Inside the HTML
 file, add the following code:
 
-```tsx
+```html
 index.html
 
-    <html>
-      <body>
-        <div></div>
-      </body>
-    </html>
+<html>
+  <body>
+    <div></div>
+  </body>
+</html>
 ```
 
 Then give the `div` a unique `id` so that you can target it later.
 
-```tsx
+```html
 index.html
 
-    <html>
-      <body>
-        <div id="app"></div>
-      </body>
-    </html>
+<html>
+  <body>
+    <div id="app"></div>
+  </body>
+</html>
 ```
 
 To write JavaScript inside your HTML file, add a `script` tag:
 
-```tsx
+```html
 index.html
 
-    <html>
-      <body>
-        <div id="app"></div>
-        <script type="text/javascript"></script>
-      </body>
-    </html>
+<html>
+  <body>
+    <div id="app"></div>
+    <script type="text/javascript"></script>
+  </body>
+</html>
 ```
 
 Now, inside the `script` tag, you can use a DOM method,
-[`getElementById()`](https://developer.mozilla.org/en-
-US/docs/Web/API/Document/getElementById), to select the `<div>` element by its
+[getElementById()](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById), to select the `<div>` element by its
 `id`:
 
-```tsx
+```html
 index.html
 
-    <html>
-      <body>
-        <div id="app"></div>
-        <script type="text/javascript">
-          const app = document.getElementById('app');
-        </script>
-      </body>
-    </html>
+<html>
+  <body>
+    <div id="app"></div>
+    <script type="text/javascript">
+      const app = document.getElementById("app");
+    </script>
+  </body>
+</html>
 ```
 
 You can continue using DOM methods to create a new `<h1>` element:
 
-```tsx
+```html
 index.html
 
-    <html>
-      <body>
-        <div id="app"></div>
-        <script type="text/javascript">
-          // Select the div element with 'app' id
-          const app = document.getElementById('app');
+<html>
+  <body>
+    <div id="app"></div>
+    <script type="text/javascript">
+      // Select the div element with 'app' id
+      const app = document.getElementById("app");
 
-          // Create a new H1 element
-          const header = document.createElement('h1');
+      // Create a new H1 element
+      const header = document.createElement("h1");
 
-          // Create a new text node for the H1 element
-          const text = 'Develop. Preview. Ship.';
-          const headerContent = document.createTextNode(text);
+      // Create a new text node for the H1 element
+      const text = "Develop. Preview. Ship.";
+      const headerContent = document.createTextNode(text);
 
-          // Append the text to the H1 element
-          header.appendChild(headerContent);
+      // Append the text to the H1 element
+      header.appendChild(headerContent);
 
-          // Place the H1 element inside the div
-          app.appendChild(header);
-        </script>
-      </body>
-    </html>
+      // Place the H1 element inside the div
+      app.appendChild(header);
+    </script>
+  </body>
+</html>
 ```
 
 To make sure everything is working, open your HTML file inside your browser of
@@ -104,7 +103,7 @@ different from the source code - or in other words, the original HTML file you
 created.
 
 ![Two side-by-side diagrams showing the differences between the rendered DOM
-elements and Source Code](../../assets/learn-dom-and-source.webp)
+elements and Source Code](https://vvlp2wl4yesgvvvr.public.blob.vercel-storage.com/vercel/react/learn-dom-and-source-vTUKz3wB6RPwXaSbFpMGrvFK7lCXST.webp)
 
 This is because the HTML represents the **initial page content** , whereas the
 DOM represents the **updated page content** which was changed by the
@@ -113,17 +112,17 @@ JavaScript code you wrote.
 Updating the DOM with plain JavaScript is very powerful but verbose. You've
 written all this code to add an `<h1>` element with some text:
 
-```tsx
+```html
 index.html
 
-    <script type="text/javascript">
-      const app = document.getElementById('app');
-      const header = document.createElement('h1');
-      const text = 'Develop. Preview. Ship.';
-      const headerContent = document.createTextNode(text);
-      header.appendChild(headerContent);
-      app.appendChild(header);
-    </script>
+<script type="text/javascript">
+  const app = document.getElementById("app");
+  const header = document.createElement("h1");
+  const text = "Develop. Preview. Ship.";
+  const headerContent = document.createTextNode(text);
+  header.appendChild(headerContent);
+  app.appendChild(header);
+</script>
 ```
 
 As the size of an app or team grows, it can become increasingly challenging to
@@ -161,10 +160,5 @@ In the next section, we'll explore how you can get started with React.
 
 > **Additional Resources:**
 >
-> - [HTML vs. the
->   DOM](https://developer.chrome.com/docs/devtools/dom/#appendix)
-> - [How declarative UI compares to
->   > imperative](https://react.dev/learn/reacting-to-input-with-state#how-
->   > declarative-ui-compares-to-imperative)
-
-
+> - [HTML vs. the DOM](https://developer.chrome.com/docs/devtools/dom/#appendix)
+> - [How declarative UI compares to imperative](https://react.dev/learn/reacting-to-input-with-state#how-declarative-ui-compares-to-imperative)

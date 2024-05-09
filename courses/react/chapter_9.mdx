@@ -18,21 +18,25 @@ manager.
 To do so, create a new file in the same directory as your `index.html` file,
 called `package.json` with an empty object `{}`.
 
+```json
 package.json
 
     {}
+```
 
 In your [terminal](https://code.visualstudio.com/docs/terminal/basics), run
 the following command in the root of your project:
 
+```shel
 Terminal
 
     npm install react@latest react-dom@latest next@latest
+```
 
 Once the installation is complete, you should be able to see your project
 dependencies listed inside your `package.json` file:
 
-```jsx
+```json
 package.json
 
     {
@@ -65,17 +69,17 @@ After deleting the lines above, add the following import to the top of your
 file:
 
 ```jsx
-import { useState } from "react";
-
 index.html;
+
+import { useState } from "react";
 ```
 
 Your code should look like this:
 
 ```jsx
-import { useState } from "react";
-
 index.html;
+
+import { useState } from "react";
 
 function Header({ title }) {
   return <h1>{title ? title : "Default title"}</h1>;
@@ -119,10 +123,10 @@ Here's how you can create your first page in Next.js:
 2. Rename your `index.js` file to `page.js`. This will be the main page of your application.
 3. Add `export default` to your `<HomePage>` component to help Next.js distinguish which component to render as the main component of the page.
 
-```jsx
-import { useState } from "react";
-
+```js
 app / page.js;
+
+import { useState } from "react";
 
 function Header({ title }) {
   return <h1>{title ? title : "Default title"}</h1>;
@@ -138,7 +142,7 @@ export default function HomePage() {
 Next, let's run your development server so you can see the changes in your new
 page while developing. Add a `"next dev"` script to your `package.json` file:
 
-```js
+```json
 package.json
 
     {
@@ -160,11 +164,7 @@ two things:
 
 ![Next.js Error Message: You're importing a component that needs useState. It
 only works in a Client
-component...](/\_next/image?url=%2Flearn%2Flight%2Flearn-usestate-rsc-
-error.png&w=3840&q=75)![Next.js Error Message: You're importing a component
-that needs useState. It only works in a Client
-component...](/\_next/image?url=%2Flearn%2Fdark%2Flearn-usestate-rsc-
-error.png&w=3840&q=75)
+component...](https://vvlp2wl4yesgvvvr.public.blob.vercel-storage.com/vercel/react/learn-usestate-rsc-error-YqsfzQlUuu2m4EYORRYn3UCpksgxo8.webp)
 
 This is because Next.js uses React Server Components, a new feature that
 allows React to render on the server. Server Components don't support
@@ -202,25 +202,18 @@ benefits of using Next.js:
 
 > **Additional Reading:**
 >
-> - [Next.js Routing Fundamentals](/docs/app/building-your-
->   application/routing)
-> - [Defining Routes](/docs/app/building-your-application/routing/defining-
->   routes)
-> - [Pages and Layouts](/docs/app/building-your-application/routing/pages-
->   and-layouts)
-
-9
+> - [Next.js Routing Fundamentals](/docs/app/building-your-application/routing)
+> - [Defining Routes](/docs/app/building-your-application/routing/defining-routes)
+> - [Pages and Layouts](/docs/app/building-your-application/routing/pages-and-layouts)
 
 ## You've Completed Chapter 9
 
 You've installed Next.js and are ready to start building your first app.
 
-Next Up
+### Next Up
 
-10: Server and Client Components
+Server and Client Components
 
 Learn when to use Server and Client Components.
 
-[Start Chapter 10](/learn/react-foundations/server-and-client-components)
-
-Was this helpful?
+### Feedback

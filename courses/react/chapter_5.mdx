@@ -30,10 +30,7 @@ bricks and combine them together to form larger structures. If you need to
 update a piece of the UI, you can update the specific component or brick.
 
 ![Example of a Media Component made up of 3 smaller components: image, text,
-and button](/\_next/image?url=%2Flearn%2Flight%2Flearn-
-components.png&w=3840&q=75)![Example of a Media Component made up of 3 smaller
-components: image, text, and button](/\_next/image?url=%2Flearn%2Fdark%2Flearn-
-components.png&w=3840&q=75)
+and button](https://vvlp2wl4yesgvvvr.public.blob.vercel-storage.com/vercel/react/learn-components-o5NzqeiqEVtO9LbrNFgniYZQ9LsjYR.webp)
 
 This modularity allows your code to be more maintainable as it grows because
 you can add, update, and delete components without touching the rest of our
@@ -42,60 +39,59 @@ application.
 The nice thing about React components is that they are just JavaScript. Let's
 see how you can write a React component, from a JavaScript perspective:
 
-### Creating components
+## Creating components
 
 In React, components are **functions.** Inside your `script` tag, create a new
 function called `header`:
 
-```jsx
+```html
 index.html
 
-    <script type="text/jsx">
-      const app = document.getElementById("app")
+<script type="text/jsx">
+  const app = document.getElementById("app")
 
-      function header() {
-      }
+  function header() {
+  }
 
-      const root = ReactDOM.createRoot(app);
-      root.render(<h1>Develop. Preview. Ship.</h1>);
-    </script>
-
+  const root = ReactDOM.createRoot(app);
+  root.render(<h1>Develop. Preview. Ship.</h1>);
+</script>
 ```
 
 A component is a function that **returns UI elements**. Inside the return
 statement of the function, you can write JSX:
 
-```jsx
+```html
 index.html
 
-    <script type="text/jsx">
-      const app = document.getElementById("app")
+<script type="text/jsx">
+  const app = document.getElementById("app")
 
-      function header() {
-         return (<h1>Develop. Preview. Ship.</h1>)
-       }
+  function header() {
+     return (<h1>Develop. Preview. Ship.</h1>)
+   }
 
-      const root = ReactDOM.createRoot(app);
-      root.render(<h1>Develop. Preview. Ship.</h1>);
-    </script>
+  const root = ReactDOM.createRoot(app);
+  root.render(<h1>Develop. Preview. Ship.</h1>);
+</script>
 ```
 
 To render this component to the DOM, pass it as the first argument in the
 `root.render()` method:
 
-```jsx
+```html
 index.html
 
-    <script type="text/jsx">
-      const app = document.getElementById("app")
+<script type="text/jsx">
+  const app = document.getElementById("app")
 
-      function header() {
-         return (<h1>Develop. Preview. Ship.</h1>)
-       }
+  function header() {
+     return (<h1>Develop. Preview. Ship.</h1>)
+   }
 
-      const root = ReactDOM.createRoot(app);
-      root.render(header);
-    </script>
+  const root = ReactDOM.createRoot(app);
+  root.render(header);
+</script>
 ```
 
 But, wait a second. If you try to run the code above in your browser, you'll
@@ -132,7 +128,7 @@ root.render(<Header />);
 
 If you try to run the code in your browser again, you'll see your changes.
 
-### Nesting components
+## Nesting components
 
 Applications usually include more content than a single component. You can
 **nest** React components inside each other like you would regular HTML
@@ -177,15 +173,12 @@ const root = ReactDOM.createRoot(app);
 root.render(<Header />);
 ```
 
-### Component trees
+## Component trees
 
 You can keep nesting React components this way to form component trees.
 
-![Component tree showing how components can be nested inside each
-other](/\_next/image?url=%2Flearn%2Flight%2Flearn-component-
-tree.png&w=3840&q=75)![Component tree showing how components can be nested
-inside each other](/\_next/image?url=%2Flearn%2Fdark%2Flearn-component-
-tree.png&w=3840&q=75)
+![Component tree showing how components can be nested
+inside each other](https://vvlp2wl4yesgvvvr.public.blob.vercel-storage.com/vercel/react/learn-component-tree-utaOATliEvK2OVMw3kbYSFcZ4j0MQ1.webp)
 
 For example, your top-level `HomePage` component could hold a `Header`, an
 `Article`, and a `Footer` Component. And each of those components could in
@@ -220,21 +213,12 @@ root.render(<HomePage />);
 > **Additional Resources:**
 >
 > - [Your first component](https://react.dev/learn/your-first-component)
-> - [Importing and exporting components](https://react.dev/learn/importing-
->   and-exporting-components)
-
-5
+> - [Importing and exporting components](https://react.dev/learn/importing-and-exporting-components)
 
 ## You've Completed Chapter 5
 
 You've created your first React Components.
 
-Next Up
-
-6: Displaying Data with Props
+### Next Up
 
 Learn what props are and how you can use them to display data.
-
-[Start Chapter 6](/learn/react-foundations/displaying-data-with-props)
-
-Was this helpful?
